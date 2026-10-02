@@ -60,7 +60,7 @@ window.RESTAURANT_CONFIG = {
     managerAlert: {
         enabled: true,
         // होटल मालिक या मैनेजर का WhatsApp नंबर जिस पर अलर्ट जाएगा:
-        managerWhatsApp: "9303284300",
+        managerWhatsApp: "8462063330",
         
         // कितने स्टार पर Google रिव्यू भेजना है (4 और 5 स्टार = Good)
         // 1, 2, 3 स्टार पर WhatsApp अलर्ट जाएगा:
