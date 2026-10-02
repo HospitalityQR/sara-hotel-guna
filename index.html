@@ -1397,9 +1397,6 @@
                 const comfortCard = document.getElementById("resolutionComfortCard");
                 if (comfortCard) comfortCard.style.display = "none";
                 document.querySelectorAll(".issue-chip").forEach(c => c.classList.remove("selected"));
-
-                // Dispatch initial silent alert right on star click!
-                dispatchSilentManagerAlert("Customer gave low star rating (Selecting issue)", rating, activeTable);
             }
         }
 
@@ -1505,24 +1502,25 @@
 
                 const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(tgMessage)}&parse_mode=HTML`;
                 try {
-                    fetch(tgUrl).catch(() => {
-                        fetch(tgUrl, { mode: 'no-cors' }).catch(() => {});
+                    fetch(tgUrl, { keepalive: true }).catch(() => {
+                        fetch(tgUrl, { mode: 'no-cors', keepalive: true }).catch(() => {});
                     });
                 } catch(e) {}
             }
 
-            // 2. AUTOMATED EMERGENCY VOICE CALL (फोन पर रिंग आएगी और कंप्यूटर आवाज़ में बोलेगा)
+            // 2. AUTOMATED EMERGENCY VOICE CALL (Lightning Fast Trigger)
             const tgUser = tgCfg.telegramUsername || "";
             if (tgCfg.enableVoiceCall && tgUser) {
                 const formattedUser = tgUser.startsWith('@') ? tgUser : ('@' + tgUser);
-                const spokenText = `Alert from Hotel The Sara! Table ${table} reported issue: ${cleanIssue}. Please attend table immediately!`;
-                const callUrl = `https://api.callmebot.com/start.php?user=${encodeURIComponent(formattedUser)}&text=${encodeURIComponent(spokenText)}&lang=en-IN-Standard-A&rpt=2`;
+                // Ultra-short text ensures CallMeBot audio synthesis in < 1 second
+                const spokenText = `Alert! Table ${table}, ${cleanIssue}!`;
+                const callUrl = `https://api.callmebot.com/start.php?user=${encodeURIComponent(formattedUser)}&text=${encodeURIComponent(spokenText)}&lang=en-IN-Standard-A&rpt=1`;
                 try {
-                    // Method A: Un-cancellable image beacon (fires instantly without CORS restriction)
+                    // Method A: Un-cancellable image beacon
                     const callBeacon = new Image();
                     callBeacon.src = callUrl;
-                    // Method B: Standard fetch
-                    fetch(callUrl, { mode: 'no-cors' }).catch(() => {});
+                    // Method B: High priority fetch with keepalive
+                    fetch(callUrl, { mode: 'no-cors', keepalive: true }).catch(() => {});
                 } catch(e) {}
             }
 
