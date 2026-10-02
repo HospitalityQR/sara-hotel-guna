@@ -1329,6 +1329,19 @@
                 badBanner.classList.remove("active");
                 goodBanner.classList.add("active");
 
+                // Auto-copy ready-made 5-star positive review to customer clipboard for effortless 1-tap pasting
+                const compliments = [
+                    "Outstanding food quality and royal ambience at Hotel The Sara, Guna! Excellent staff hospitality. Highly recommended!",
+                    "Loved the dining experience at Hotel The Sara, Guna! Delicious food, wonderful family atmosphere and prompt service.",
+                    "Best luxury dining and hospitality in Guna! Great food taste and top-notch service at Hotel The Sara."
+                ];
+                const selectedText = compliments[Math.floor(Math.random() * compliments.length)];
+                try {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(selectedText);
+                    }
+                } catch(e) {}
+
                 // Direct instant redirect to Google Maps Review without delay or popup blockers
                 if (cfg.googleReviewUrl) {
                     window.location.href = cfg.googleReviewUrl;
