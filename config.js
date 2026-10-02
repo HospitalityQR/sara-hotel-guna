@@ -64,7 +64,7 @@ window.RESTAURANT_CONFIG = {
         botToken: "",
 
         // Manager Telegram Chat ID (@userinfobot से प्राप्त):
-        chatId: "",
+        chatId: "1208521281",
 
         // होटल का नाम जो मैसेज में जाएगा:
         hotelName: "Hotel The Sara, Guna",
