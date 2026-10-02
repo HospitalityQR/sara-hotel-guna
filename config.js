@@ -53,33 +53,27 @@ window.RESTAURANT_CONFIG = {
     autoRedirectDelayMs: 1200,
 
     // ========================================================================
-    // 4. DIRECT PHONE SMS MANAGER ALERT (OPTION 1 — SMART REVIEW FILTER)
+    // 4. INSTANT 1-TAP WHATSAPP ALERT TO MANAGER (SMART REVIEW FILTER)
     // ========================================================================
     // ⭐ 4 or 5 Stars -> Direct to Google Review!
-    // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Sends Instant Direct Phone SMS to Manager!
-    smsAlert: {
+    // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Opens WhatsApp with Pre-Filled Message to Manager!
+    managerAlert: {
         enabled: true,
-        // होटल मालिक या मैनेजर का मोबाइल नंबर जिस पर तुरंत SMS अलर्ट जाएगा:
+        // होटल मैनेजर का WhatsApp नंबर जिस पर कस्टमर का मैसेज जाएगा:
+        managerWhatsApp: "8462063330",
         managerPhone: "8462063330",
-        altPhone: "8462063330",
-        // ⚡ FAST2SMS DIRECT SMS GATEWAY (Quick Indian SMS API — Option 1)
-        // 1. Fast2SMS API Key डालें (https://www.fast2sms.com/):
-        fast2smsApiKey: "",
-
-        // 2. या कोई भी Custom SMS API Gateway / Webhook URL:
-        customSmsUrl: "",
+        altPhone: "9303284300",
 
         // कितने स्टार पर Google रिव्यू भेजना है (4 और 5 स्टार = Good)
-        // 1, 2, 3 स्टार पर Direct SMS अलर्ट जाएगा:
         minGoodStars: 4,
 
-        // होटल का नाम जो SMS में जाएगा:
+        // होटल का नाम जो मैसेज में जाएगा:
         hotelName: "Hotel The Sara, Guna",
 
         // मैसेज की हेडिंग:
-        alertHeading: "🚨 URGENT GUEST COMPLAINT SMS ALERT",
+        alertHeading: "🚨 URGENT GUEST COMPLAINT ALERT",
 
-        // क्विक इश्यू ऑप्शंस जो कस्टमर सिलेक्ट कर सकता है:
+        // क्विक इश्यू ऑप्शंस:
         issueCategories: [
             "🍲 Food Taste / Quality Issue",
             "⏱️ Slow Service / Waiter Delay",
@@ -88,15 +82,11 @@ window.RESTAURANT_CONFIG = {
             "🧾 Billing / Pricing Query"
         ]
     },
-    // Backward-compatibility alias
-    managerAlert: {
+    // Compatibility alias
+    smsAlert: {
         enabled: true,
-        managerPhone: "8462063330",
-        altPhone: "8462063330",
-        fast2smsApiKey: "",
-        customSmsUrl: "",
-        minGoodStars: 4,
-        hotelName: "Hotel The Sara, Guna"
+        managerWhatsApp: "8462063330",
+        managerPhone: "8462063330"
     },
 
     // ========================================================================

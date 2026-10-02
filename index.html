@@ -631,6 +631,33 @@
             letter-spacing: 0.5px;
         }
 
+        .direct-wa-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            width: 100%;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 13px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+            letter-spacing: 0.4px;
+            margin: 12px 0 6px;
+            animation: pulseWa 2s infinite;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .direct-wa-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 28px rgba(37, 211, 102, 0.7);
+        }
+
         .alert-sent-confirmation {
             display: none;
             background: rgba(34, 197, 94, 0.2);
@@ -1092,6 +1119,14 @@
                         </p>
                     </div>
 
+                    <!-- Direct 1-Tap WhatsApp Alert Button -->
+                    <a href="#" id="directWaAlertBtn" class="direct-wa-btn" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
+                            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.311.045-.698.059-1.146-.086-.285-.093-.655-.234-1.14-.443-1.999-.864-3.308-2.883-3.409-3.018-.099-.134-.813-1.082-.813-2.064 0-.983.515-1.464.698-1.666.183-.203.4-.253.533-.253.134 0 .267.002.383.007.123.006.287-.047.45.344.167.398.568 1.385.618 1.486.05.101.084.22.017.353-.067.135-.1.22-.2.338-.1.118-.21.264-.3.355-.1.101-.205.21-.088.411.117.202.52.858 1.114 1.387.766.682 1.41.894 1.611.995.202.1.32.084.44-.05.118-.135.5-.583.633-.784.133-.202.267-.168.45-.101.183.067 1.164.55 1.364.65.201.101.334.152.384.236.05.085.05.49-.094.895z"/>
+                        </svg>
+                        <span>मैनेजर को WhatsApp भेजें (1-Tap Send) →</span>
+                    </a>
+
                     <!-- Hospitality Perks Banner -->
                     <div class="hospitality-promise-box">
                         <div class="promise-item">
@@ -1365,8 +1400,8 @@
             }
         }
 
-        // Issue Chip Selection — SILENT BACKGROUND SMS ALERT (No customer app opens!)
-        function handleIssueSelectSilent(elem, issueText) {
+        // Issue Chip Selection — 1-TAP DIRECT WHATSAPP TO MANAGER (8462063330)
+        function handleIssueSelectAndOpenWA(elem, issueText) {
             // 1. Highlight clicked chip
             document.querySelectorAll(".issue-chip").forEach(c => c.classList.remove("selected"));
             if (elem) elem.classList.add("selected");
@@ -1384,93 +1419,53 @@
             const comfortIssue = document.getElementById("comfortIssueDisplay");
             if (comfortIssue) comfortIssue.innerText = issueText;
 
+            const cfg = window.RESTAURANT_CONFIG || {};
+            const alertCfg = cfg.managerAlert || cfg.smsAlert || {};
+            const mgrWhatsApp = alertCfg.managerWhatsApp || alertCfg.managerPhone || cfg.whatsapp || "8462063330";
+            const hotelName = alertCfg.hotelName || cfg.name || "Hotel The Sara, Guna";
+
+            // Pre-filled courteous & urgent message for Manager's WhatsApp
+            const alertMsg = `🚨 *URGENT TABLE ASSISTANCE REQUEST*\n\n🏨 *Hotel:* ${hotelName}\n📍 *Location:* ${activeTable}\n⭐ *Rating:* ${currentRating || 2} / 5 Stars\n⚠️ *Issue:* ${issueText}\n\nनमस्ते मैनेजर जी, मैं ${activeTable} पर बैठा हूँ। मुझे यहाँ समस्या आ रही है। कृपया तुरंत मेरी टेबल पर आकर समाधान करें।`;
+
+            const waUrl = `https://api.whatsapp.com/send?phone=91${mgrWhatsApp}&text=${encodeURIComponent(alertMsg)}`;
+
+            // Set button on comfort card
+            const directBtn = document.getElementById("directWaAlertBtn");
+            if (directBtn) {
+                directBtn.href = waUrl;
+            }
+
             const comfortCard = document.getElementById("resolutionComfortCard");
             if (comfortCard) {
                 comfortCard.style.display = "block";
                 comfortCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
-            // 3. Silent background Direct SMS notification dispatch (Option 1)
-            dispatchSilentManagerAlert(issueText, currentRating || 1, activeTable);
-        }
+            // 3. Immediately launch customer's WhatsApp with pre-filled message to Manager!
+            setTimeout(() => {
+                window.location.href = waUrl;
+            }, 350);
 
-        // Silent Manager Alert Dispatcher (Option 1: Sends Direct Mobile SMS in background without opening any app)
-        function dispatchSilentManagerAlert(issueText, stars, table) {
-            const cfg = window.RESTAURANT_CONFIG || {};
-            const alertCfg = cfg.smsAlert || cfg.managerAlert || {};
-            const mgrPhone = alertCfg.managerPhone || alertCfg.managerWhatsApp || cfg.phone || "8462063330";
-            const altPhone = alertCfg.altPhone || cfg.altPhone || "9303284300";
-            const hotelName = alertCfg.hotelName || cfg.name || "Hotel The Sara, Guna";
-            const fast2smsKey = alertCfg.fast2smsApiKey || alertCfg.callMeBotApiKey || "";
-            const customSmsUrl = alertCfg.customSmsUrl || alertCfg.webhookUrl || "";
-
-            // Strip emojis for clean, reliable GSM SMS transmission
-            const cleanIssue = issueText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
-            const smsText = `URGENT ALERT - ${hotelName.toUpperCase()}: Table ${table} guest gave ${stars}-star rating! Issue: ${cleanIssue}. Please visit table immediately!`;
-
-            console.log("Option 1 Direct SMS Alert Dispatched:", { table, stars, issue: cleanIssue, phone: mgrPhone });
-
-            // Method 1: Fast2SMS Direct Indian Mobile SMS Gateway (Option 1)
-            if (fast2smsKey) {
-                const fast2smsUrl = `https://www.fast2sms.com/dev/bulkV2?authorization=${encodeURIComponent(fast2smsKey)}&route=q&message=${encodeURIComponent(smsText)}&language=english&flash=0&numbers=${encodeURIComponent(mgrPhone)}`;
-                try {
-                    fetch(fast2smsUrl, { mode: 'no-cors' }).catch(e => console.log("Fast2SMS fetch:", e));
-                } catch (e) {}
-
-                if (altPhone && altPhone !== mgrPhone) {
-                    const fast2smsUrl2 = `https://www.fast2sms.com/dev/bulkV2?authorization=${encodeURIComponent(fast2smsKey)}&route=q&message=${encodeURIComponent(smsText)}&language=english&flash=0&numbers=${encodeURIComponent(altPhone)}`;
-                    try {
-                        fetch(fast2smsUrl2, { mode: 'no-cors' }).catch(e => console.log("Fast2SMS Alt fetch:", e));
-                    } catch (e) {}
-                }
-            }
-
-            // Method 2: Custom SMS Gateway / Webhook
-            if (customSmsUrl) {
-                try {
-                    const formattedUrl = customSmsUrl
-                        .replace('{phone}', encodeURIComponent(mgrPhone))
-                        .replace('{message}', encodeURIComponent(smsText))
-                        .replace('{table}', encodeURIComponent(table))
-                        .replace('{stars}', encodeURIComponent(stars));
-
-                    fetch(formattedUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        mode: 'no-cors',
-                        body: JSON.stringify({
-                            hotel: hotelName,
-                            table: table,
-                            stars: stars,
-                            issue: cleanIssue,
-                            managerPhone: mgrPhone,
-                            altPhone: altPhone,
-                            message: smsText,
-                            timestamp: new Date().toISOString()
-                        })
-                    }).catch(() => {
-                        try {
-                            fetch(formattedUrl, { mode: 'no-cors' }).catch(e => console.log("Custom SMS GET:", e));
-                        } catch (e) {}
-                    });
-                } catch (e) {}
-            }
-
-            // Method 3: Local incident audit log on device
+            // Audit log in localStorage
             try {
                 const incidents = JSON.parse(localStorage.getItem('sara_table_alerts') || '[]');
-                incidents.push({ table, stars, issue: cleanIssue, phone: mgrPhone, time: new Date().toISOString(), type: 'SMS_ALERT' });
+                incidents.push({ table: activeTable, stars: currentRating || 2, issue: issueText, phone: mgrWhatsApp, time: new Date().toISOString() });
                 localStorage.setItem('sara_table_alerts', JSON.stringify(incidents));
             } catch (e) {}
         }
 
-        // Backward compatibility
-        function handleIssueSelectAndOpenWA(elem, issueText) {
-            handleIssueSelectSilent(elem, issueText);
+        // Backward & Alternate Aliases
+        function handleIssueSelectSilent(elem, issueText) {
+            handleIssueSelectAndOpenWA(elem, issueText);
         }
 
         function selectIssue(elem, issueText) {
-            handleIssueSelectSilent(elem, issueText);
+            handleIssueSelectAndOpenWA(elem, issueText);
+        }
+
+        function dispatchSilentManagerAlert(issueText, stars, table) {
+            // Internal log
+            console.log("Manager Alert triggered for:", table, stars, issueText);
         }
 
         // Lightbox Functions
