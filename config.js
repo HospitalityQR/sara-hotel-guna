@@ -61,7 +61,7 @@ window.RESTAURANT_CONFIG = {
     telegramAlert: {
         enabled: true,
         // Telegram Bot Token (@BotFather से प्राप्त 100% फ्री टोकन):
-        botToken: "",
+        botToken: "8723399785:AAE5lQaDufvupDSg89egxqMUQ6Rvn9k17eY",
 
         // Manager Telegram Chat ID (@userinfobot से प्राप्त):
         chatId: "1208521281",
