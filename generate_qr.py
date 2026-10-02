@@ -428,7 +428,7 @@ def draw_luxury_corners(draw, x1, y1, x2, y2, arm=36, col=(249, 226, 156, 255)):
     draw.ellipse([x2 - 2, y2 - arm - 2, x2 + 2, y2 - arm + 2], fill=col)
 
 
-def generate_single_smart_standee(config, output_filename="table_standee_printable.png"):
+def generate_single_smart_standee(config, output_filename="table_standee_printable.png", table_num=None, custom_url=None, serial_no=None):
     """
     Generate 300 DPI Ultra-Luxury Acrylic Standee (1200 x 1800 px) for Hotel The Sara:
     - Deep espresso brownish luxury background with ambient chandelier bokeh
@@ -455,7 +455,6 @@ def generate_single_smart_standee(config, output_filename="table_standee_printab
     draw_luxury_corners(draw, 56, 56, W - 56, H - 56, arm=48, col=(249, 226, 156, 255))
 
     # 1. Header Section:
-    # "STAY IN STYLE" small tracked pill badge
     f_sub = get_font(20, bold=True, serif=True)
     f_title = get_font(42, bold=True, serif=True)
     f_tagline = get_font(22, bold=True, serif=False)
@@ -482,17 +481,15 @@ def generate_single_smart_standee(config, output_filename="table_standee_printab
     draw.polygon([(W // 2, 436), (W // 2 + 7, 442), (W // 2, 448), (W // 2 - 7, 442)], fill=(249, 226, 156))
 
     # 2. Main Call to Action:
-    # "RATE US ON GOOGLE & FOLLOW US ON INSTAGRAM"
     draw.text((W // 2, 480), "RATE US ON GOOGLE", fill=(255, 245, 220), font=f_cta_main, anchor="mm")
     draw_stars(draw, W // 2, 524, count=5, radius=14, gap=8, fill_col=(255, 215, 0), outline_col=(180, 130, 20))
     draw.text((W // 2, 564), "& FOLLOW US ON INSTAGRAM", fill=(249, 226, 156), font=get_font(26, bold=True, serif=True), anchor="mm")
 
     # 3. QR Code Section (Large High Contrast 660x660 in 24k Gold Bevel)
-    landing_url = config.get("landingPageUrl", "https://hospitalityqr.github.io/sara-hotel-guna/?v=1")
+    landing_url = custom_url or config.get("landingPageUrl", "https://hospitalityqr.github.io/sara-hotel-guna/")
     qr_img = generate_styled_qr(landing_url, target_size=630, center_mode="medallion")
 
     qr_box_y = 612
-    # White card frame with double gold rim behind QR
     draw.rounded_rectangle([W // 2 - 340, qr_box_y - 12, W // 2 + 340, qr_box_y + 630 + 12], radius=26, fill=(255, 255, 255), outline=(218, 175, 58), width=5)
     draw.rounded_rectangle([W // 2 - 332, qr_box_y - 4, W // 2 + 332, qr_box_y + 630 + 4], radius=22, outline=(249, 226, 156), width=2)
     card.paste(qr_img, (W // 2 - 315, qr_box_y), qr_img)
@@ -501,21 +498,17 @@ def generate_single_smart_standee(config, output_filename="table_standee_printab
     draw.text((W // 2, 1304), "POINT YOUR PHONE CAMERA TO SCAN", fill=(255, 255, 255), font=get_font(24, bold=True, serif=True), anchor="mm")
     draw.text((W // 2, 1338), "Direct Google Reviews • Instagram • WiFi • Contact", fill=(218, 175, 58), font=f_cta_sub, anchor="mm")
 
-    # 5. Table Number & Security Seal (The Anti-Theft / Hardware Moat):
-    table_num = config.get("license", {}).get("tableNumber", "VIP TABLE #01")
-    draw.rounded_rectangle([W // 2 - 180, 1380, W // 2 + 180, 1430], radius=15, fill=(18, 10, 5, 240), outline=(218, 175, 58), width=2)
-    draw.text((W // 2, 1405), f"• {table_num.upper()} •", fill=(255, 220, 130), font=get_font(22, bold=True, serif=True), anchor="mm")
+    # 5. Table Number & Security Seal:
+    display_table = table_num or config.get("license", {}).get("tableNumber", "VIP TABLE #01")
+    draw.rounded_rectangle([W // 2 - 190, 1380, W // 2 + 190, 1432], radius=15, fill=(18, 10, 5, 240), outline=(218, 175, 58), width=2)
+    draw.text((W // 2, 1406), f"• {display_table.upper()} •", fill=(255, 220, 130), font=get_font(22, bold=True, serif=True), anchor="mm")
 
     # Anti-Piracy Tamper-Proof Hologram / Security Footer:
-    # This proves to the hotel that each stand is serialized and protected!
-    serial_no = config.get("license", {}).get("serialNumber", "HS-GUNA-VIP-001")
+    display_serial = serial_no or config.get("license", {}).get("serialNumber", "HS-GUNA-VIP-001")
     draw.rounded_rectangle([72, 1690, W - 72, 1742], radius=12, fill=(10, 6, 3, 230), outline=(180, 130, 30), width=1)
-    draw.text((W // 2, 1716), f"AUTHENTIC HOSPITALITY SMART HUB  |  SERIAL #{serial_no}  |  LICENSED HARDWARE", fill=(180, 150, 100), font=f_sec, anchor="mm")
+    draw.text((W // 2, 1716), f"AUTHENTIC HOSPITALITY SMART HUB  |  SERIAL #{display_serial}  |  LICENSED HARDWARE", fill=(180, 150, 100), font=f_sec, anchor="mm")
 
     card.save(output_filename, dpi=(300, 300), quality=98)
-    # Also save as standee_front_printable.png for cross-compatibility
-    card.save("standee_front_printable.png", dpi=(300, 300), quality=98)
-    print(f"Saved {output_filename} (300 DPI, {W}x{H})")
     return card
 
 
@@ -671,6 +664,39 @@ def generate_single_channel_standees(config):
     print("Saved standee_instagram_direct.png")
 
 
+def generate_all_table_standees(config, count=20, output_dir="table_standees_1_to_20"):
+    """
+    Generate 20 separate 300 DPI Standees for Hotel The Sara:
+    - Each table has its own unique label: Table #01 to Table #20
+    - Each QR code points directly to: https://hospitalityqr.github.io/sara-hotel-guna/?table={i}
+    - Each standee has its unique anti-counterfeiting serial: #HS-GUNA-TAB-{i:02d}
+    - Archives all 20 PNGs into Hotel_The_Sara_20_Table_Standees_300DPI.zip for 1-click printing!
+    """
+    import zipfile
+    os.makedirs(output_dir, exist_ok=True)
+    base_landing_url = config.get("landingPageUrl", "https://hospitalityqr.github.io/sara-hotel-guna/").rstrip('/')
+    
+    zip_filename = "Hotel_The_Sara_20_Table_Standees_300DPI.zip"
+    with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for i in range(1, count + 1):
+            table_label = f"VIP TABLE #01" if i == 1 else f"TABLE #{i:02d}"
+            table_url = f"{base_landing_url}/?table={i}"
+            serial_no = f"HS-GUNA-TAB-{i:02d}"
+            filename = os.path.join(output_dir, f"Table_{i:02d}_Standee_Printable.png")
+            
+            print(f"Generating Table {i:02d}/{count:02d} -> {table_label} ({table_url})...")
+            generate_single_smart_standee(
+                config=config,
+                output_filename=filename,
+                table_num=table_label,
+                custom_url=table_url,
+                serial_no=serial_no
+            )
+            zipf.write(filename, arcname=f"Table_{i:02d}_Standee_Printable.png")
+            
+    print(f"\n[SUCCESS] Generated all {count} Table Standees in '{output_dir}/' and zipped to '{zip_filename}'!")
+
+
 def main():
     print("==================================================")
     print("HOTEL THE SARA (GUNA) — ULTRA-LUXURY QR SUITE BUILD")
@@ -689,9 +715,9 @@ def main():
 
     # 3. QR Codes
     print("\n[3/5] Generating High-Resolution Styled QR Codes...")
-    landing_url = config.get("landingPageUrl", "https://hospitalityqr.github.io/sara-hotel-guna/?v=1")
-    google_url = config.get("googleReviewUrl", "https://www.google.com/maps/search/?api=1&query=Hotel+The+Sara+Guna+Madhya+Pradesh")
-    insta_url = config.get("instagramUrl", "https://www.instagram.com/hotelthesara_guna/")
+    landing_url = config.get("landingPageUrl", "https://hospitalityqr.github.io/sara-hotel-guna/")
+    google_url = config.get("googleReviewUrl", "https://share.google/vRFMikseO8TDcpg9l")
+    insta_url = config.get("instagramUrl", "https://www.instagram.com/hotelthesara?stkn=dzQwc3pzNGx0Y3Jo")
 
     qr_smart = generate_styled_qr(landing_url, target_size=800, center_mode="medallion")
     qr_smart.save("qr_code.png")
@@ -706,16 +732,22 @@ def main():
     qr_insta.save("qr_instagram_direct.png")
     print("Saved qr_instagram_direct.png")
 
-    # 4. 300 DPI Printable Standees
+    # 4. 300 DPI Printable Standees (Default Hub & Channels)
     print("\n[4/5] Rendering 300 DPI Printable Standees...")
     generate_single_smart_standee(config, "table_standee_printable.png")
+    generate_single_smart_standee(config, "standee_front_printable.png")
     generate_dual_direct_standee(config, "standee_dual_direct_static.png")
     generate_single_channel_standees(config)
 
+    # 5. Batch 20 Table Standees (Table 01 to Table 20)
+    print("\n[5/5] Generating 20 Unique Table Standees (Table #01 to Table #20)...")
+    generate_all_table_standees(config, count=20, output_dir="table_standees_1_to_20")
+
     print("\n==================================================")
-    print("ALL ASSETS & STANDEES GENERATED SUCCESSFULLY!")
+    print("ALL 20 TABLE STANDEES & ASSETS GENERATED SUCCESSFULLY!")
     print("==================================================")
 
 
 if __name__ == "__main__":
     main()
+
