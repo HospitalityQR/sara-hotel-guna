@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel The Sara, Guna — Printable QR Standee Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --espresso-deep: #0f0905;
+            --mahogany-mid: #1c1109;
+            --bronze-warm: #2c1a0e;
+            --gold-primary: #d4af37;
+            --gold-light: #f9e29c;
+            --gold-dark: #9e7c1f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #080402;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 16px 60px;
+        }
+
+        /* Studio Toolbar */
+        .toolbar {
+            width: 100%;
+            max-width: 960px;
+            background: rgba(28, 17, 9, 0.95);
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            border-radius: 16px;
+            padding: 14px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+        }
+
+        .toolbar-title {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toolbar-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .mode-btn {
+            padding: 8px 14px;
+            border-radius: 9px;
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            background: rgba(15, 9, 5, 0.85);
+            color: #e5e5e5;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mode-btn.active,
+        .mode-btn:hover {
+            background: linear-gradient(135deg, #f9e29c 0%, #d4af37 60%, #aa801a 100%);
+            color: #0d0703;
+            border-color: #f9e29c;
+        }
+
+        .select-table {
+            padding: 8px 12px;
+            border-radius: 9px;
+            background: rgba(15, 9, 5, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: var(--gold-light);
+            font-weight: 700;
+            font-size: 12px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .print-btn {
+            padding: 8px 18px;
+            border-radius: 9px;
+            border: 1.5px solid #f9e29c;
+            background: linear-gradient(135deg, #d4af37, #9e7c1f);
+            color: #ffffff;
+            font-size: 12.5px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        /* 4x6 Inch Standee Card (Aspect Ratio 2:3, 480x720) */
+        .standee-card {
+            width: 480px;
+            height: 720px;
+            background-color: var(--espresso-deep);
+            background-image: url('bg_ambience_brownish.jpg?v=1');
+            background-size: cover;
+            background-position: center center;
+            position: relative;
+            padding: 22px 24px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* Outer & Inner Gold Borders */
+        .border-outer {
+            position: absolute;
+            inset: 14px;
+            border: 2px solid var(--gold-primary);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .border-inner {
+            position: absolute;
+            inset: 19px;
+            border: 1px solid rgba(249, 226, 156, 0.6);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Corner Ornaments */
+        .corner {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .corner-tl { top: 22px; left: 22px; border-top: 2px solid var(--gold-light); border-left: 2px solid var(--gold-light); }
+        .corner-tr { top: 22px; right: 22px; border-top: 2px solid var(--gold-light); border-right: 2px solid var(--gold-light); }
+        .corner-bl { bottom: 22px; left: 22px; border-bottom: 2px solid var(--gold-light); border-left: 2px solid var(--gold-light); }
+        .corner-br { bottom: 22px; right: 22px; border-bottom: 2px solid var(--gold-light); border-right: 2px solid var(--gold-light); }
+
+        /* Standee Header */
+        .standee-header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 3;
+            margin-top: 4px;
+        }
+
+        .standee-pill {
+            padding: 4px 12px;
+            background: rgba(28, 17, 9, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            border-radius: 12px;
+            font-size: 9.5px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .standee-medallion {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+            margin-bottom: 6px;
+        }
+
+        .standee-title {
+            font-family: 'Cinzel', serif;
+            font-size: 21px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+        }
+
+        .standee-sub {
+            font-size: 9.5px;
+            font-weight: 700;
+            color: var(--gold-primary);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .standee-cta-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            margin-bottom: 6px;
+        }
+
+        .standee-cta-text {
+            font-family: 'Cinzel', serif;
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .standee-stars {
+            display: flex;
+            gap: 3px;
+            color: #f5b700;
+            font-size: 11px;
+            margin: 1px 0;
+        }
+
+        .standee-cta-second {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 0.6px;
+        }
+
+        /* QR Frame Box */
+        .qr-frame-box {
+            position: relative;
+            background: #ffffff;
+            border: 3px solid var(--gold-primary);
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-img {
+            width: 260px;
+            height: 260px;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Dual QR Grid */
+        .dual-qr-grid {
+            display: none;
+            width: 100%;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            z-index: 3;
+            padding: 0 4px;
+        }
+
+        .dual-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(18, 10, 5, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 14px;
+            padding: 10px 6px;
+        }
+
+        .dual-col-title {
+            font-family: 'Cinzel', serif;
+            font-size: 10.5px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .dual-col-sub {
+            font-size: 9px;
+            color: var(--gold-light);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .dual-qr-box {
+            background: #ffffff;
+            border: 2px solid var(--gold-primary);
+            border-radius: 10px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dual-qr-img {
+            width: 145px;
+            height: 145px;
+            display: block;
+        }
+
+        /* Standee Footer */
+        .standee-footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            z-index: 3;
+            margin-bottom: 2px;
+        }
+
+        .scan-instruction {
+            font-family: 'Cinzel', serif;
+            font-size: 11.5px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.8px;
+        }
+
+        .scan-subtext {
+            font-size: 9.5px;
+            color: var(--gold-primary);
+        }
+
+        .table-pill-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 12px;
+            background: rgba(18, 10, 5, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 10px;
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--gold-light);
+            letter-spacing: 0.8px;
+            margin-top: 2px;
+        }
+
+        .security-serial-text {
+            font-size: 8px;
+            color: #8c735b;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .toolbar {
+                display: none !important;
+            }
+            .standee-card {
+                box-shadow: none;
+                width: 100vw;
+                height: 100vh;
+                max-width: 100%;
+                max-height: 100%;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Studio Toolbar -->
+    <div class="toolbar">
+        <div class="toolbar-title">
+            <span>✨</span> HOTEL THE SARA — STANDEE STUDIO
+        </div>
+        <div class="toolbar-controls">
+            <button class="mode-btn active" onclick="setMode('smart')">Smart Hub QR</button>
+            <button class="mode-btn" onclick="setMode('dual')">Dual Direct QR</button>
+            <button class="mode-btn" onclick="setMode('google')">Google Only</button>
+            <button class="mode-btn" onclick="setMode('insta')">Instagram Only</button>
+
+            <!-- Table Selector -->
+            <select class="select-table" id="tableSelect" onchange="updateTable(this.value)">
+                <option value="VIP TABLE #01">VIP Table 01</option>
+                <option value="TABLE #02">Table 02</option>
+                <option value="TABLE #03">Table 03</option>
+                <option value="TABLE #04">Table 04</option>
+                <option value="TABLE #05">Table 05</option>
+                <option value="TABLE #06">Table 06</option>
+                <option value="TABLE #07">Table 07</option>
+                <option value="TABLE #08">Table 08</option>
+                <option value="BANQUET HALL 01">Banquet 01</option>
+                <option value="RECEPTION DESK">Reception Desk</option>
+            </select>
+
+            <button class="print-btn" onclick="window.print()">🖨️ Print Standee</button>
+        </div>
+    </div>
+
+    <!-- Standee Card Container (4x6 Aspect Ratio) -->
+    <div class="standee-card" id="standeeCard">
+        <!-- Gold Borders & Corners -->
+        <div class="border-outer"></div>
+        <div class="border-inner"></div>
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+
+        <!-- Standee Header -->
+        <div class="standee-header">
+            <div class="standee-pill">HOTEL THE SARA • GUNA</div>
+            <img src="logo_medallion.png" alt="Sara Logo" class="standee-medallion">
+            <div class="standee-title">HOTEL THE SARA</div>
+            <div class="standee-sub">STAY IN STYLE • FINE DINING & BANQUETS</div>
+
+            <div class="standee-cta-box" id="ctaBox">
+                <div class="standee-cta-text" id="ctaMain">RATE US ON GOOGLE</div>
+                <div class="standee-stars" id="ctaStars">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <div class="standee-cta-second" id="ctaSub">& FOLLOW US ON INSTAGRAM</div>
+            </div>
+        </div>
+
+        <!-- Single QR View -->
+        <div class="qr-frame-box" id="singleQrBox">
+            <img src="qr_code.png" alt="Smart Hub QR" class="qr-img" id="mainQrImg">
+        </div>
+
+        <!-- Dual Direct QR View -->
+        <div class="dual-qr-grid" id="dualQrBox">
+            <div class="dual-col">
+                <div class="dual-col-title">RATE ON GOOGLE</div>
+                <div class="standee-stars" style="font-size:9.5px; margin-bottom:4px;">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <div class="dual-qr-box">
+                    <img src="qr_google_direct.png" alt="Google QR" class="dual-qr-img">
+                </div>
+                <div style="font-size:8.5px; color:var(--gold-light); font-weight:700; margin-top:4px;">Direct Review</div>
+            </div>
+            <div class="dual-col">
+                <div class="dual-col-title">INSTAGRAM</div>
+                <div class="dual-col-sub" id="dualInstaHandle">@hotelthesara_guna</div>
+                <div class="dual-qr-box">
+                    <img src="qr_instagram_direct.png" alt="Instagram QR" class="dual-qr-img">
+                </div>
+                <div style="font-size:8.5px; color:var(--gold-light); font-weight:700; margin-top:4px;">Tag & Follow</div>
+            </div>
+        </div>
+
+        <!-- Standee Footer -->
+        <div class="standee-footer">
+            <div class="scan-instruction" id="scanTitle">POINT YOUR PHONE CAMERA TO SCAN</div>
+            <div class="scan-subtext" id="scanDesc">Direct Google Reviews • Instagram • WiFi • Contact</div>
+
+            <div class="table-pill-box">
+                <span id="displayTableText">VIP TABLE #01</span>
+            </div>
+
+            <div class="security-serial-text" id="serialText">
+                AUTHENTIC SMART TABLE HUB • SERIAL #HS-GUNA-VIP-001 • PROTECTED HARDWARE
+            </div>
+        </div>
+    </div>
+
+    <!-- Central Configuration -->
+    <script src="config.js?v=2"></script>
+    <script>
+        let currentMode = 'smart';
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const singleBox = document.getElementById('singleQrBox');
+            const dualBox = document.getElementById('dualQrBox');
+            const mainQr = document.getElementById('mainQrImg');
+            const ctaBox = document.getElementById('ctaBox');
+            const ctaMain = document.getElementById('ctaMain');
+            const ctaStars = document.getElementById('ctaStars');
+            const ctaSub = document.getElementById('ctaSub');
+            const scanTitle = document.getElementById('scanTitle');
+            const scanDesc = document.getElementById('scanDesc');
+
+            if (mode === 'smart') {
+                singleBox.style.display = 'flex';
+                dualBox.style.display = 'none';
+                mainQr.src = 'qr_code.png';
+                ctaBox.style.display = 'flex';
+                ctaMain.innerText = 'RATE US ON GOOGLE';
+                ctaStars.style.display = 'flex';
+                ctaSub.style.display = 'block';
+                ctaSub.innerText = '& FOLLOW US ON INSTAGRAM';
+                scanTitle.innerText = 'POINT YOUR PHONE CAMERA TO SCAN';
+                scanDesc.innerText = 'Direct Google Reviews • Instagram • WiFi • Contact';
+            } else if (mode === 'dual') {
+                singleBox.style.display = 'none';
+                dualBox.style.display = 'grid';
+                ctaBox.style.display = 'none';
+                scanTitle.innerText = 'SCAN WITH ANY PHONE CAMERA';
+                scanDesc.innerText = 'Share Experience on Google • Connect on Instagram';
+            } else if (mode === 'google') {
+                singleBox.style.display = 'flex';
+                dualBox.style.display = 'none';
+                mainQr.src = 'qr_google_direct.png';
+                ctaBox.style.display = 'flex';
+                ctaMain.innerText = 'RATE US ON GOOGLE';
+                ctaStars.style.display = 'flex';
+                ctaSub.style.display = 'none';
+                scanTitle.innerText = 'POINT YOUR PHONE CAMERA TO REVIEW';
+                scanDesc.innerText = 'Your 5-Star Feedback Inspires Our Hospitality Team';
+            } else if (mode === 'insta') {
+                singleBox.style.display = 'flex';
+                dualBox.style.display = 'none';
+                mainQr.src = 'qr_instagram_direct.png';
+                ctaBox.style.display = 'flex';
+                ctaMain.innerText = 'FOLLOW US ON INSTAGRAM';
+                ctaStars.style.display = 'none';
+                ctaSub.style.display = 'block';
+                ctaSub.innerText = (window.RESTAURANT_CONFIG && window.RESTAURANT_CONFIG.instagramHandle) || '@hotelthesara_guna';
+                scanTitle.innerText = 'SCAN TO VISIT OUR PROFILE';
+                scanDesc.innerText = 'Exclusive Stories, Event Updates & Banquet Highlights';
+            }
+        }
+
+        function updateTable(val) {
+            document.getElementById('displayTableText').innerText = val;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const cfg = window.RESTAURANT_CONFIG || {};
+            if (cfg.instagramHandle) {
+                document.getElementById('dualInstaHandle').innerText = cfg.instagramHandle;
+            }
+            if (cfg.license && cfg.license.serialNumber) {
+                document.getElementById('serialText').innerText = `AUTHENTIC SMART TABLE HUB • SERIAL #${cfg.license.serialNumber} • PROTECTED HARDWARE`;
+            }
+        });
+    </script>
+</body>
+</html>

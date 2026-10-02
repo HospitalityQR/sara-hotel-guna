@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title id="pageTitle">Hotel The Sara, Guna | Stay In Style — Rate Us & Connect</title>
+    
+    <!-- Meta Tags for SEO & Social Sharing -->
+    <meta name="description" id="metaDesc" content="Welcome to Hotel The Sara, AB Road, Guna (M.P.). Experience fine dining, executive banquets, and royal hospitality. Share your Google Review & follow on Instagram.">
+    <meta name="theme-color" content="#1a1008">
+    
+    <!-- Google Fonts: Luxury Serif & Modern Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Hotel The Sara Ultra-Luxury Brownish Ambience & 24k Gold Palette */
+            --bg-espresso-deep: #0f0905;
+            --bg-mahogany-mid: #1c1109;
+            --bg-bronze-warm: #2c1a0e;
+            --bg-card: rgba(22, 13, 7, 0.88);
+            --bg-card-hover: rgba(35, 21, 12, 0.96);
+            --card-border: rgba(218, 175, 58, 0.65);
+            --card-border-hover: rgba(249, 226, 156, 1);
+
+            /* 24k Gold Accents */
+            --gold-primary: #d4af37;
+            --gold-light: #f9e29c;
+            --gold-dark: #9e7c1f;
+            --gold-gradient: linear-gradient(135deg, #fbf0c4 0%, #d4af37 50%, #aa801a 100%);
+            --gold-metallic: linear-gradient(135deg, #f9e498 0%, #c99e2c 50%, #f7df94 100%);
+
+            /* Typography */
+            --text-white: #ffffff;
+            --text-cream: #faf7f0;
+            --text-gold: #f5d77f;
+            --text-muted: #d6c7b2;
+            --font-serif: 'Cinzel', 'Playfair Display', serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            /* Shadows & Glow */
+            --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.75);
+            --shadow-gold: 0 0 28px rgba(212, 175, 55, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-espresso-deep);
+            background-image: url('bg_ambience_brownish.jpg?v=1');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--text-white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 12px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Brownish Glow Vignette */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 15%, rgba(212, 175, 55, 0.12) 0%, rgba(15, 9, 5, 0.72) 75%, rgba(10, 5, 2, 0.94) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Main Framed Standee-Style Ultra-Luxury Card Container */
+        .luxury-frame {
+            width: 100%;
+            max-width: 465px;
+            background-color: #120b06;
+            background-image: url('bg_ambience_brownish.jpg?v=1');
+            background-size: cover;
+            background-position: center top;
+            border: 2.5px solid var(--gold-primary);
+            border-radius: 22px;
+            padding: 20px 18px 18px;
+            position: relative;
+            box-shadow: 0 28px 72px rgba(0, 0, 0, 0.9), 0 0 42px rgba(212, 175, 55, 0.22);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            animation: fadeInScale 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Inner Hairline Gold Border */
+        .luxury-frame::before {
+            content: '';
+            position: absolute;
+            inset: 7px;
+            border: 1px solid rgba(249, 226, 156, 0.55);
+            border-radius: 16px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Ornamental 24k Gold Corner Accents */
+        .corner-ornament {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .corner-tl { top: 12px; left: 12px; border-top: 2px solid var(--gold-light); border-left: 2px solid var(--gold-light); }
+        .corner-tr { top: 12px; right: 12px; border-top: 2px solid var(--gold-light); border-right: 2px solid var(--gold-light); }
+        .corner-bl { bottom: 12px; left: 12px; border-bottom: 2px solid var(--gold-light); border-left: 2px solid var(--gold-light); }
+        .corner-br { bottom: 12px; right: 12px; border-bottom: 2px solid var(--gold-light); border-right: 2px solid var(--gold-light); }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Header Top Tagline Pill */
+        .header-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            background: rgba(28, 17, 9, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.65);
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            z-index: 2;
+        }
+
+        /* 24k Gold Rim Medallion Logo */
+        .medallion-wrap {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            padding: 3px;
+            background: var(--gold-metallic);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 20px rgba(212, 175, 55, 0.4);
+            margin-bottom: 12px;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .medallion-wrap:hover {
+            transform: scale(1.04);
+        }
+
+        .medallion-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Brand Title */
+        .brand-title {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 2.2px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+            margin-bottom: 3px;
+            z-index: 2;
+        }
+
+        .brand-sub {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            z-index: 2;
+        }
+
+        .brand-desc {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            max-width: 380px;
+            line-height: 1.45;
+            margin-bottom: 16px;
+            z-index: 2;
+        }
+
+        /* Divider with Diamond */
+        .divider {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            z-index: 2;
+        }
+
+        .divider-line {
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.65), transparent);
+        }
+
+        .divider-diamond {
+            width: 7px;
+            height: 7px;
+            background: var(--gold-light);
+            transform: rotate(45deg);
+        }
+
+        /* Action Cards Section */
+        .action-cards {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+            z-index: 2;
+        }
+
+        /* Action Card - Ultra Luxury Brown & Gold */
+        .action-card {
+            width: 100%;
+            background: linear-gradient(145deg, rgba(28, 17, 9, 0.92) 0%, rgba(18, 11, 6, 0.96) 100%);
+            border: 1.5px solid var(--card-border);
+            border-radius: 16px;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transform: skewX(-22deg);
+            transition: left 0.6s ease;
+        }
+
+        .action-card:hover::before {
+            left: 140%;
+        }
+
+        .action-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--card-border-hover);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.8), var(--shadow-gold);
+        }
+
+        .card-icon-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: rgba(12, 7, 4, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .card-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2px;
+        }
+
+        .card-title {
+            font-family: var(--font-serif);
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.6px;
+        }
+
+        .card-subtitle {
+            font-size: 11.5px;
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        .card-arrow {
+            color: var(--gold-primary);
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .action-card:hover .card-arrow {
+            transform: translateX(4px);
+        }
+
+        /* 5 Golden Stars */
+        .stars-row {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            color: #f5b700;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* Ambience Carousel Section */
+        .ambience-section {
+            width: 100%;
+            margin-bottom: 18px;
+            z-index: 2;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 0 4px;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--gold-light);
+            text-transform: uppercase;
+        }
+
+        .section-hint {
+            font-size: 10.5px;
+            color: var(--text-muted);
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 6px;
+            scrollbar-width: none;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-item {
+            flex: 0 0 135px;
+            height: 95px;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            scroll-snap-align: start;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.03);
+            border-color: var(--gold-light);
+        }
+
+        .carousel-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            inset-inline: 0;
+            background: linear-gradient(0deg, rgba(15, 9, 5, 0.95) 0%, transparent 100%);
+            padding: 12px 6px 4px;
+            font-size: 9.5px;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        /* Quick Action Utility Bar (Call, WhatsApp, Maps) */
+        .utility-bar {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+            z-index: 2;
+        }
+
+        .util-btn {
+            background: rgba(28, 17, 9, 0.8);
+            border: 1px solid rgba(212, 175, 58, 0.5);
+            border-radius: 12px;
+            padding: 10px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .util-btn:hover {
+            background: rgba(45, 27, 14, 0.95);
+            border-color: var(--gold-light);
+            color: var(--gold-light);
+        }
+
+        .util-icon {
+            font-size: 16px;
+        }
+
+        /* Table & Security Footer */
+        .footer-badge {
+            width: 100%;
+            padding-top: 10px;
+            border-top: 1px solid rgba(212, 175, 55, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            z-index: 2;
+        }
+
+        .table-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 14px;
+            background: rgba(28, 17, 9, 0.85);
+            border: 1px solid rgba(212, 175, 58, 0.5);
+            border-radius: 14px;
+            font-family: var(--font-serif);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+        }
+
+        .security-seal {
+            font-size: 9.5px;
+            color: #a38c75;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        /* Lightbox Modal for Ambience Photos */
+        .lightbox-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.94);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 16px;
+            backdrop-filter: blur(8px);
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 92%;
+            max-height: 85vh;
+            border: 2px solid var(--gold-primary);
+            border-radius: 16px;
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.4);
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 40px;
+            height: 40px;
+            background: rgba(28, 17, 9, 0.85);
+            border: 1.5px solid var(--gold-primary);
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Anti-Piracy / License Lock Screen Modal */
+        .license-lock-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(12, 7, 4, 0.98);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .license-lock-overlay.active {
+            display: flex;
+        }
+
+        .lock-card {
+            max-width: 420px;
+            background: #180f08;
+            border: 2px solid #ef4444;
+            border-radius: 20px;
+            padding: 26px 20px;
+            box-shadow: 0 16px 48px rgba(239, 68, 68, 0.25);
+        }
+
+        .lock-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .lock-title {
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-weight: 800;
+            color: #ef4444;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .lock-desc {
+            font-size: 13px;
+            color: #d1d5db;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .lock-serial {
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 12px;
+            border-radius: 8px;
+            color: #f59e0b;
+            font-family: monospace;
+            margin-bottom: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Framed Card -->
+    <div class="luxury-frame">
+        <!-- Corner Gold Filigree Accents -->
+        <div class="corner-ornament corner-tl"></div>
+        <div class="corner-ornament corner-tr"></div>
+        <div class="corner-ornament corner-bl"></div>
+        <div class="corner-ornament corner-br"></div>
+
+        <!-- Top Pill Tagline -->
+        <div class="header-pill" id="headerTagline">
+            <span>👑</span> HOTEL THE SARA • GUNA
+        </div>
+
+        <!-- 24K Gold Rim Medallion Logo -->
+        <div class="medallion-wrap">
+            <img src="logo_medallion.png" alt="Hotel The Sara Logo" class="medallion-img" id="brandLogo">
+        </div>
+
+        <!-- Brand Title & Tagline -->
+        <h1 class="brand-title" id="brandName">HOTEL THE SARA</h1>
+        <div class="brand-sub" id="brandSubname">STAY IN STYLE • FINE DINING & BANQUETS</div>
+        <p class="brand-desc" id="brandDesc">Multi-Cuisine Fine Dining • Royal Celebrations • Executive Rooms</p>
+
+        <!-- Divider with Gold Diamond -->
+        <div class="divider">
+            <div class="divider-line"></div>
+            <div class="divider-diamond"></div>
+            <div class="divider-line"></div>
+        </div>
+
+        <!-- Primary Action Cards -->
+        <div class="action-cards">
+            <!-- Google Review Card -->
+            <a href="#" class="action-card" id="btnGoogleReview" target="_blank" rel="noopener">
+                <div class="card-icon-wrap">
+                    <!-- Google G Icon -->
+                    <svg width="26" height="26" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                        <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+                        <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                        <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <div class="card-title-row">
+                        <span class="card-title">Rate Us on Google</span>
+                        <span class="card-arrow">→</span>
+                    </div>
+                    <div class="card-subtitle">Share your 5-Star dining experience</div>
+                    <div class="stars-row">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        <span style="color:#ffffff; font-size:11px; margin-left:4px;">5.0 Rating</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Instagram Card -->
+            <a href="#" class="action-card" id="btnInstagram" target="_blank" rel="noopener">
+                <div class="card-icon-wrap" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);">
+                    <!-- Instagram White Icon -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <div class="card-title-row">
+                        <span class="card-title">Follow on Instagram</span>
+                        <span class="card-arrow">→</span>
+                    </div>
+                    <div class="card-subtitle" id="instaHandle">@hotelthesara_guna</div>
+                    <div style="font-size: 10.5px; color:#cbd5e1; margin-top:2px;">Tag us in your stories & dining reels</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Ambience Showcase Carousel -->
+        <div class="ambience-section">
+            <div class="section-header">
+                <span class="section-title">Hotel & Dining Ambience</span>
+                <span class="section-hint">Tap to zoom</span>
+            </div>
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-item" onclick="openLightbox('ambience_1.jpg?v=1')">
+                    <img src="ambience_1.jpg?v=1" alt="Table Ambience" class="carousel-img">
+                    <div class="carousel-caption">Fine Dining</div>
+                </div>
+                <div class="carousel-item" onclick="openLightbox('ambience_2.jpg?v=1')">
+                    <img src="ambience_2.jpg?v=1" alt="Grand Dining Hall" class="carousel-img">
+                    <div class="carousel-caption">Banquet Hall</div>
+                </div>
+                <div class="carousel-item" onclick="openLightbox('ambience_3.jpg?v=1')">
+                    <img src="ambience_3.jpg?v=1" alt="Hotel Facade" class="carousel-img">
+                    <div class="carousel-caption">Grand Facade</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Action Utility Bar -->
+        <div class="utility-bar">
+            <a href="tel:9303284300" class="util-btn" id="btnCall">
+                <span class="util-icon">📞</span>
+                <span>Call Hotel</span>
+            </a>
+            <a href="#" class="util-btn" id="btnWhatsapp" target="_blank">
+                <span class="util-icon">💬</span>
+                <span>WhatsApp</span>
+            </a>
+            <a href="#" class="util-btn" id="btnDirections" target="_blank">
+                <span class="util-icon">📍</span>
+                <span>Directions</span>
+            </a>
+        </div>
+
+        <!-- Table & Anti-Theft Protection Footer -->
+        <div class="footer-badge">
+            <div class="table-pill" id="tableBadge">
+                <span>🍽️</span> <span id="tableText">VIP TABLE #01</span>
+            </div>
+            <div class="security-seal" id="securitySeal">
+                AUTHENTIC SMART TABLE HUB • SERIAL #HS-GUNA-VIP-001
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox()">
+        <div class="lightbox-close">&times;</div>
+        <img src="" alt="Enlarged Ambience" class="lightbox-content" id="lightboxImg">
+    </div>
+
+    <!-- Anti-Piracy / License Lock Modal -->
+    <div class="license-lock-overlay" id="licenseLockOverlay">
+        <div class="lock-card">
+            <div class="lock-icon">🔒</div>
+            <h2 class="lock-title" id="lockTitle">HARDWARE VERIFICATION REQUIRED</h2>
+            <div class="lock-serial" id="lockSerial">SERIAL: #HS-GUNA-VIP-001</div>
+            <p class="lock-desc" id="lockDesc">
+                This Smart Hospitality Standee is registered for Single Table Display. Excessive scan concurrency detected. Please contact your authorized hospitality provider to activate the multi-table dining pack.
+            </p>
+            <div style="font-size:12px; color:#f9e29c; font-weight:700;" id="lockContact">
+                Authorized Provider: Contact Vendor
+            </div>
+        </div>
+    </div>
+
+    <!-- Central Configuration Script -->
+    <script src="config.js?v=2"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cfg = window.RESTAURANT_CONFIG || {};
+
+            // 1. Populate Text & Links
+            if (cfg.name) document.getElementById("brandName").innerText = cfg.name.toUpperCase();
+            if (cfg.subname) document.getElementById("brandSubname").innerText = cfg.subname + " • FINE DINING & BANQUETS";
+            if (cfg.highlight) document.getElementById("brandDesc").innerText = cfg.highlight;
+            if (cfg.instagramHandle) document.getElementById("instaHandle").innerText = cfg.instagramHandle;
+
+            // Destination Links
+            const googleBtn = document.getElementById("btnGoogleReview");
+            if (cfg.googleReviewUrl) {
+                googleBtn.href = cfg.googleReviewUrl;
+            }
+
+            const instaBtn = document.getElementById("btnInstagram");
+            if (cfg.instagramUrl) {
+                instaBtn.href = cfg.instagramUrl;
+            }
+
+            // Quick Actions
+            if (cfg.phone) {
+                document.getElementById("btnCall").href = "tel:" + cfg.phone;
+            }
+            if (cfg.whatsappUrl) {
+                document.getElementById("btnWhatsapp").href = cfg.whatsappUrl;
+            }
+            if (cfg.googleReviewUrl) {
+                document.getElementById("btnDirections").href = cfg.googleReviewUrl;
+            }
+
+            // Table Number from Query Param or Config
+            const urlParams = new URLSearchParams(window.location.search);
+            const tableParam = urlParams.get("table") || (cfg.license && cfg.license.tableNumber) || "VIP TABLE #01";
+            document.getElementById("tableText").innerText = tableParam.toUpperCase();
+
+            // 2. Anti-Piracy / License Control Engine
+            const lic = cfg.license || {};
+            if (lic.enabled) {
+                if (lic.serialNumber) {
+                    document.getElementById("securitySeal").innerText = `AUTHENTIC SMART TABLE HUB • SERIAL #${lic.serialNumber}`;
+                }
+
+                // If remote kill switch activated
+                if (lic.status === "LOCKED") {
+                    showLicenseLock(lic.lockTitle, lic.lockMessage, lic.serialNumber, lic.vendorContact);
+                    return;
+                }
+
+                // Daily Scan Frequency Limiter (Detects multiple duplicated tables)
+                if (lic.enableDailyScanLimit) {
+                    const todayKey = "sara_scans_" + new Date().toISOString().slice(0, 10);
+                    let dailyScans = parseInt(localStorage.getItem(todayKey) || "0", 10) + 1;
+                    localStorage.setItem(todayKey, dailyScans);
+
+                    if (dailyScans > (lic.maxDailyScans || 60)) {
+                        console.warn("Scan limit reached for single table license:", dailyScans);
+                        // Optional notification or lock screen trigger
+                    }
+                }
+            }
+
+            // 3. Auto-Redirect Behavior (Optional)
+            if (cfg.autoRedirectToGoogle && cfg.googleReviewUrl) {
+                setTimeout(() => {
+                    window.location.href = cfg.googleReviewUrl;
+                }, cfg.autoRedirectDelayMs || 1200);
+            }
+        });
+
+        // Lightbox Functions
+        function openLightbox(imgSrc) {
+            const modal = document.getElementById("lightboxModal");
+            const img = document.getElementById("lightboxImg");
+            img.src = imgSrc;
+            modal.classList.add("active");
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById("lightboxModal");
+            modal.classList.remove("active");
+        }
+
+        // License Lock Trigger
+        function showLicenseLock(title, message, serial, contact) {
+            const overlay = document.getElementById("licenseLockOverlay");
+            if (title) document.getElementById("lockTitle").innerText = title;
+            if (message) document.getElementById("lockDesc").innerText = message;
+            if (serial) document.getElementById("lockSerial").innerText = "SERIAL: #" + serial;
+            if (contact) document.getElementById("lockContact").innerText = "Authorized Provider: " + contact;
+            overlay.classList.add("active");
+        }
+    </script>
+</body>
+</html>
