@@ -53,25 +53,28 @@ window.RESTAURANT_CONFIG = {
     autoRedirectDelayMs: 1200,
 
     // ========================================================================
-    // 4. INSTANT 1-TAP WHATSAPP ALERT TO MANAGER (SMART REVIEW FILTER)
+    // 4. DIRECT PHONE SMS ALERT TO MANAGER (SMART REVIEW FILTER)
     // ========================================================================
     // ⭐ 4 or 5 Stars -> Direct to Google Review!
-    // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Opens WhatsApp with Pre-Filled Message to Manager!
-    managerAlert: {
+    // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Sends Direct Phone SMS to Manager!
+    smsAlert: {
         enabled: true,
-        // होटल मैनेजर का WhatsApp नंबर जिस पर कस्टमर का मैसेज जाएगा:
-        managerWhatsApp: "8462063330",
+        // होटल मैनेजर का मोबाइल नंबर जिस पर तुरंत Phone SMS जाएगा:
         managerPhone: "8462063330",
         altPhone: "9303284300",
+
+        // ⚡ Optional: Fast2SMS API Key (अगर बैकग्राउंड में भी SMS भेजना हो)
+        fast2smsApiKey: "",
+        customSmsUrl: "",
 
         // कितने स्टार पर Google रिव्यू भेजना है (4 और 5 स्टार = Good)
         minGoodStars: 4,
 
-        // होटल का नाम जो मैसेज में जाएगा:
+        // होटल का नाम जो SMS में जाएगा:
         hotelName: "Hotel The Sara, Guna",
 
         // मैसेज की हेडिंग:
-        alertHeading: "🚨 URGENT GUEST COMPLAINT ALERT",
+        alertHeading: "🚨 URGENT GUEST COMPLAINT SMS ALERT",
 
         // क्विक इश्यू ऑप्शंस:
         issueCategories: [
@@ -83,10 +86,12 @@ window.RESTAURANT_CONFIG = {
         ]
     },
     // Compatibility alias
-    smsAlert: {
+    managerAlert: {
         enabled: true,
-        managerWhatsApp: "8462063330",
-        managerPhone: "8462063330"
+        managerPhone: "8462063330",
+        altPhone: "9303284300",
+        minGoodStars: 4,
+        hotelName: "Hotel The Sara, Guna"
     },
 
     // ========================================================================

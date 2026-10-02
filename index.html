@@ -631,31 +631,36 @@
             letter-spacing: 0.5px;
         }
 
-        .direct-wa-btn {
+        .direct-sms-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 9px;
             width: 100%;
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             color: #ffffff;
             font-weight: 800;
-            font-size: 13px;
-            padding: 12px 14px;
+            font-size: 13.5px;
+            padding: 13px 16px;
             border-radius: 12px;
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(56, 189, 248, 0.4);
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
             letter-spacing: 0.4px;
             margin: 12px 0 6px;
-            animation: pulseWa 2s infinite;
+            animation: pulseSms 2s infinite;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .direct-wa-btn:hover {
+        .direct-sms-btn:hover {
             transform: scale(1.02);
-            box-shadow: 0 8px 28px rgba(37, 211, 102, 0.7);
+            box-shadow: 0 8px 28px rgba(2, 132, 199, 0.7);
+        }
+
+        @keyframes pulseSms {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 16px rgba(2, 132, 199, 0.5); }
+            50% { transform: scale(1.03); box-shadow: 0 0 28px rgba(2, 132, 199, 0.85); }
         }
 
         .alert-sent-confirmation {
@@ -1119,12 +1124,12 @@
                         </p>
                     </div>
 
-                    <!-- Direct 1-Tap WhatsApp Alert Button -->
-                    <a href="#" id="directWaAlertBtn" class="direct-wa-btn" target="_blank" rel="noopener">
+                    <!-- Direct 1-Tap SMS Alert Button -->
+                    <a href="#" id="directSmsAlertBtn" class="direct-sms-btn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
-                            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.311.045-.698.059-1.146-.086-.285-.093-.655-.234-1.14-.443-1.999-.864-3.308-2.883-3.409-3.018-.099-.134-.813-1.082-.813-2.064 0-.983.515-1.464.698-1.666.183-.203.4-.253.533-.253.134 0 .267.002.383.007.123.006.287-.047.45.344.167.398.568 1.385.618 1.486.05.101.084.22.017.353-.067.135-.1.22-.2.338-.1.118-.21.264-.3.355-.1.101-.205.21-.088.411.117.202.52.858 1.114 1.387.766.682 1.41.894 1.611.995.202.1.32.084.44-.05.118-.135.5-.583.633-.784.133-.202.267-.168.45-.101.183.067 1.164.55 1.364.65.201.101.334.152.384.236.05.085.05.49-.094.895z"/>
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                         </svg>
-                        <span>मैनेजर को WhatsApp भेजें (1-Tap Send) →</span>
+                        <span>मैनेजर को SMS भेजें (1-Tap Send SMS) →</span>
                     </a>
 
                     <!-- Hospitality Perks Banner -->
@@ -1400,8 +1405,8 @@
             }
         }
 
-        // Issue Chip Selection — 1-TAP DIRECT WHATSAPP TO MANAGER (8462063330)
-        function handleIssueSelectAndOpenWA(elem, issueText) {
+        // Issue Chip Selection — 1-TAP DIRECT PHONE SMS TO MANAGER (8462063330)
+        function handleIssueSelectAndSendSMS(elem, issueText) {
             // 1. Highlight clicked chip
             document.querySelectorAll(".issue-chip").forEach(c => c.classList.remove("selected"));
             if (elem) elem.classList.add("selected");
@@ -1420,19 +1425,23 @@
             if (comfortIssue) comfortIssue.innerText = issueText;
 
             const cfg = window.RESTAURANT_CONFIG || {};
-            const alertCfg = cfg.managerAlert || cfg.smsAlert || {};
-            const mgrWhatsApp = alertCfg.managerWhatsApp || alertCfg.managerPhone || cfg.whatsapp || "8462063330";
+            const alertCfg = cfg.smsAlert || cfg.managerAlert || {};
+            const mgrPhone = alertCfg.managerPhone || cfg.phone || "8462063330";
             const hotelName = alertCfg.hotelName || cfg.name || "Hotel The Sara, Guna";
 
-            // Pre-filled courteous & urgent message for Manager's WhatsApp
-            const alertMsg = `🚨 *URGENT TABLE ASSISTANCE REQUEST*\n\n🏨 *Hotel:* ${hotelName}\n📍 *Location:* ${activeTable}\n⭐ *Rating:* ${currentRating || 2} / 5 Stars\n⚠️ *Issue:* ${issueText}\n\nनमस्ते मैनेजर जी, मैं ${activeTable} पर बैठा हूँ। मुझे यहाँ समस्या आ रही है। कृपया तुरंत मेरी टेबल पर आकर समाधान करें।`;
+            // Clean issue text without emojis for clean standard SMS compatibility
+            const cleanIssue = issueText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+            const smsText = `URGENT ALERT - ${hotelName.toUpperCase()}: Table ${activeTable} guest gave ${currentRating || 2}-star rating! Issue: ${cleanIssue}. Please visit table immediately!`;
 
-            const waUrl = `https://api.whatsapp.com/send?phone=91${mgrWhatsApp}&text=${encodeURIComponent(alertMsg)}`;
+            // Universal Mobile SMS Protocol (Android '?' and iOS '&' body separator)
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const separator = isIOS ? '&' : '?';
+            const smsUrl = `sms:${mgrPhone}${separator}body=${encodeURIComponent(smsText)}`;
 
             // Set button on comfort card
-            const directBtn = document.getElementById("directWaAlertBtn");
+            const directBtn = document.getElementById("directSmsAlertBtn");
             if (directBtn) {
-                directBtn.href = waUrl;
+                directBtn.href = smsUrl;
             }
 
             const comfortCard = document.getElementById("resolutionComfortCard");
@@ -1441,31 +1450,43 @@
                 comfortCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
-            // 3. Immediately launch customer's WhatsApp with pre-filled message to Manager!
+            // 3. Immediately launch customer's phone SMS / Messages app with manager's phone and text pre-filled!
             setTimeout(() => {
-                window.location.href = waUrl;
+                window.location.href = smsUrl;
             }, 350);
+
+            // Optional Fast2SMS / Gateway background fetch if configured
+            const fast2smsKey = alertCfg.fast2smsApiKey || "";
+            if (fast2smsKey) {
+                const fast2smsUrl = `https://www.fast2sms.com/dev/bulkV2?authorization=${encodeURIComponent(fast2smsKey)}&route=q&message=${encodeURIComponent(smsText)}&language=english&flash=0&numbers=${encodeURIComponent(mgrPhone)}`;
+                try {
+                    fetch(fast2smsUrl, { mode: 'no-cors' }).catch(() => {});
+                } catch (e) {}
+            }
 
             // Audit log in localStorage
             try {
                 const incidents = JSON.parse(localStorage.getItem('sara_table_alerts') || '[]');
-                incidents.push({ table: activeTable, stars: currentRating || 2, issue: issueText, phone: mgrWhatsApp, time: new Date().toISOString() });
+                incidents.push({ table: activeTable, stars: currentRating || 2, issue: cleanIssue, phone: mgrPhone, time: new Date().toISOString(), type: 'PHONE_SMS' });
                 localStorage.setItem('sara_table_alerts', JSON.stringify(incidents));
             } catch (e) {}
         }
 
         // Backward & Alternate Aliases
+        function handleIssueSelectAndOpenWA(elem, issueText) {
+            handleIssueSelectAndSendSMS(elem, issueText);
+        }
+
         function handleIssueSelectSilent(elem, issueText) {
-            handleIssueSelectAndOpenWA(elem, issueText);
+            handleIssueSelectAndSendSMS(elem, issueText);
         }
 
         function selectIssue(elem, issueText) {
-            handleIssueSelectAndOpenWA(elem, issueText);
+            handleIssueSelectAndSendSMS(elem, issueText);
         }
 
         function dispatchSilentManagerAlert(issueText, stars, table) {
-            // Internal log
-            console.log("Manager Alert triggered for:", table, stars, issueText);
+            console.log("SMS Manager Alert triggered for:", table, stars, issueText);
         }
 
         // Lightbox Functions
