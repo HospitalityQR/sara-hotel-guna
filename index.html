@@ -1485,10 +1485,7 @@
                 successCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
-            // 1. Dispatch alert to Manager's Telegram & automated call
-            dispatchSilentManagerAlert(finalFeedback, currentRating || 2, activeTable);
-
-            // 2. Permanently save feedback in system records & Google Sheets
+            // 1. Permanently save feedback in system records & Google Sheets (Only 1, 2, 3 Stars)
             saveGuestFeedbackEntry(activeTable, currentRating || 2, finalFeedback);
         }
 
@@ -1536,87 +1533,8 @@
         }
 
         function dispatchSilentManagerAlert(issueText, stars, table) {
-            const cfg = window.RESTAURANT_CONFIG || {};
-            const tgCfg = cfg.telegramAlert || {};
-            const botToken = tgCfg.botToken || "";
-            const chatId = tgCfg.chatId || "";
-            const hotelName = tgCfg.hotelName || cfg.name || "Hotel The Sara, Guna";
-
-            const cleanIssue = issueText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
-            const timeNow = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
-
-            console.log("Silent Alert Dispatched for:", { table, stars, issue: cleanIssue });
-
-            // 1. OPTION C: Telegram Instant Emergency Push Notification (100% Free Lifetime)
-            if (botToken && chatId) {
-                const tgMessage = `👑 <b>${hotelName.toUpperCase()} — GUEST FEEDBACK ALERT</b>\n\n` +
-                                  `💬 <b>Customer Feedback / Suggestion:</b>\n<i>"${cleanIssue}"</i>\n\n` +
-                                  `📍 <b>Location:</b> ${table}\n` +
-                                  `⭐ <b>Rating Given:</b> ${stars} / 5 Stars\n` +
-                                  `🕒 <b>Time:</b> ${timeNow}\n\n` +
-                                  `👉 <b>Manager Action:</b> Please attend <b>${table}</b> immediately to delight the guest!`;
-
-                const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(tgMessage)}&parse_mode=HTML`;
-                try {
-                    fetch(tgUrl, { keepalive: true }).catch(() => {
-                        fetch(tgUrl, { mode: 'no-cors', keepalive: true }).catch(() => {});
-                    });
-                } catch(e) {}
-            }
-
-            // 2. AUTOMATED EMERGENCY VOICE CALL (Lightning Fast Trigger)
-            const tgUser = tgCfg.telegramUsername || "";
-            if (tgCfg.enableVoiceCall && tgUser) {
-                const formattedUser = tgUser.startsWith('@') ? tgUser : ('@' + tgUser);
-                // Ultra-short text ensures CallMeBot audio synthesis in < 1 second
-                const spokenText = `Alert! Table ${table}, ${cleanIssue}!`;
-                const callUrl = `https://api.callmebot.com/start.php?user=${encodeURIComponent(formattedUser)}&text=${encodeURIComponent(spokenText)}&lang=en-IN-Standard-A&rpt=1`;
-                try {
-                    // Method A: Un-cancellable image beacon
-                    const callBeacon = new Image();
-                    callBeacon.src = callUrl;
-                    // Method B: High priority fetch with keepalive
-                    fetch(callUrl, { mode: 'no-cors', keepalive: true }).catch(() => {});
-                } catch(e) {}
-            }
-
-            // 3. Fallbacks: SMS / Voice Call
-            const alertCfg = cfg.smsAlert || cfg.managerAlert || {};
-            const mgrPhone = alertCfg.managerPhone || cfg.phone || "8462063330";
-            const fast2smsKey = alertCfg.fast2smsApiKey || "";
-            const voiceCallUrl = alertCfg.voiceCallUrl || "";
-            const customSmsUrl = alertCfg.customSmsUrl || "";
-            const smsText = `URGENT ALERT - ${hotelName.toUpperCase()}: Table ${table} guest gave ${stars}-star rating! Issue: ${cleanIssue}. Visit table now!`;
-
-            if (fast2smsKey) {
-                const fast2smsUrl = `https://www.fast2sms.com/dev/bulkV2?authorization=${encodeURIComponent(fast2smsKey)}&route=q&message=${encodeURIComponent(smsText)}&language=english&flash=0&numbers=${encodeURIComponent(mgrPhone)}`;
-                try { fetch(fast2smsUrl, { mode: 'no-cors' }).catch(() => {}); } catch(e) {}
-            }
-
-            if (voiceCallUrl) {
-                try {
-                    fetch(voiceCallUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        mode: 'no-cors',
-                        body: JSON.stringify({
-                            hotel: hotelName,
-                            table: table,
-                            stars: stars,
-                            issue: cleanIssue,
-                            managerPhone: mgrPhone,
-                            type: 'EMERGENCY_VOICE_CALL'
-                        })
-                    }).catch(() => {});
-                } catch(e) {}
-            }
-
-            // 3. Audit Log in localStorage
-            try {
-                const incidents = JSON.parse(localStorage.getItem('sara_table_alerts') || '[]');
-                incidents.push({ table, stars, issue: cleanIssue, time: new Date().toISOString(), type: 'OPTION_C_ALERT' });
-                localStorage.setItem('sara_table_alerts', JSON.stringify(incidents));
-            } catch(e) {}
+            // Telegram alerts and automated calls completely disabled
+            // 1, 2, 3 star customer feedback is automatically pushed to Google Sheets & records
         }
 
         // Lightbox Functions

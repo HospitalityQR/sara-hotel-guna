@@ -59,31 +59,13 @@ window.RESTAURANT_CONFIG = {
     // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Sends Silent Instant Alert to Manager's Telegram!
     // (Customer does NOTHING. VIP apology card is shown. Loud alert rings on Manager's Telegram)
     telegramAlert: {
-        enabled: true,
-        // Telegram Bot Token (@BotFather से प्राप्त 100% फ्री टोकन):
-        botToken: "8723399785:AAE5lQaDufvupDSg89egxqMUQ6Rvn9k17eY",
-
-        // Manager Telegram Chat ID (@userinfobot से प्राप्त):
-        chatId: "1208521281",
-
-        // 📞 AUTOMATED EMERGENCY VOICE CALL (कॉल आएगी और कंप्यूटर आवाज़ में बोलेगा):
-        enableVoiceCall: true,
-        telegramUsername: "@iam_namangarg206",
-
-        // होटल का नाम जो मैसेज में जाएगा:
+        enabled: false,
+        botToken: "",
+        chatId: "",
+        enableVoiceCall: false,
+        telegramUsername: "",
         hotelName: "Hotel The Sara, Guna",
-
-        // कितने स्टार पर Google रिव्यू भेजना है (4 और 5 स्टार = Good)
-        minGoodStars: 4,
-
-        // क्विक इश्यू ऑप्शंस:
-        issueCategories: [
-            "🍲 Food Taste / Quality Issue",
-            "⏱️ Slow Service / Waiter Delay",
-            "❄️ AC / Ambience / Noise",
-            "🧼 Cleanliness / Hygiene Issue",
-            "🧾 Billing / Pricing Query"
-        ]
+        minGoodStars: 4
     },
 
     // SMS & Voice Fallback Configuration
