@@ -1514,9 +1514,9 @@
             // 2. AUTOMATED EMERGENCY VOICE CALL (फोन पर रिंग आएगी और कंप्यूटर आवाज़ में बोलेगा)
             const tgUser = tgCfg.telegramUsername || "";
             if (tgCfg.enableVoiceCall && tgUser) {
-                const cleanUser = tgUser.replace('@', '').trim();
+                const formattedUser = tgUser.startsWith('@') ? tgUser : ('@' + tgUser);
                 const spokenText = `Alert from Hotel The Sara! Table ${table} reported issue: ${cleanIssue}. Please attend table immediately!`;
-                const callUrl = `https://api.callmebot.com/start.php?user=${encodeURIComponent(cleanUser)}&text=${encodeURIComponent(spokenText)}&lang=en-IN-Standard-A&rpt=2`;
+                const callUrl = `https://api.callmebot.com/start.php?user=${encodeURIComponent(formattedUser)}&text=${encodeURIComponent(spokenText)}&lang=en-IN-Standard-A&rpt=2`;
                 try {
                     fetch(callUrl, { mode: 'no-cors' }).catch(() => {});
                 } catch(e) {}

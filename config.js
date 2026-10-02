@@ -68,7 +68,7 @@ window.RESTAURANT_CONFIG = {
 
         // 📞 AUTOMATED EMERGENCY VOICE CALL (कॉल आएगी और कंप्यूटर आवाज़ में बोलेगा):
         enableVoiceCall: true,
-        telegramUsername: "", // आपका Telegram @username (जैसे @username)
+        telegramUsername: "@iam_namangarg206",
 
         // होटल का नाम जो मैसेज में जाएगा:
         hotelName: "Hotel The Sara, Guna",
