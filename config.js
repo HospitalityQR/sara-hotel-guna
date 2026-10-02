@@ -53,31 +53,31 @@ window.RESTAURANT_CONFIG = {
     autoRedirectDelayMs: 1200,
 
     // ========================================================================
-    // 4. LIVE WHATSAPP MANAGER ALERT (SMART REVIEW FILTER)
+    // 4. DIRECT PHONE SMS MANAGER ALERT (OPTION 1 — SMART REVIEW FILTER)
     // ========================================================================
     // ⭐ 4 or 5 Stars -> Direct to Google Review!
-    // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Sends Instant Alert to Manager's WhatsApp!
-    managerAlert: {
+    // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Sends Instant Direct Phone SMS to Manager!
+    smsAlert: {
         enabled: true,
-        // होटल मालिक या मैनेजर का WhatsApp नंबर जिस पर अलर्ट जाएगा:
-        managerWhatsApp: "8462063330",
-        
-        // ⚡ BACKGROUND SILENT WHATSAPP DISPATCH (कस्टमर का WhatsApp नहीं खुलेगा, बैकग्राउंड में जाएगा)
-        // 1. CallMeBot फ्री WhatsApp API Key (https://www.callmebot.com/blog/free-api-whatsapp-messages/):
-        callMeBotApiKey: "", 
+        // होटल मालिक या मैनेजर का मोबाइल नंबर जिस पर तुरंत SMS अलर्ट जाएगा:
+        managerPhone: "8462063330",
+        altPhone: "9303284300",
+        // ⚡ FAST2SMS DIRECT SMS GATEWAY (Quick Indian SMS API — Option 1)
+        // 1. Fast2SMS API Key डालें (https://www.fast2sms.com/):
+        fast2smsApiKey: "",
 
-        // 2. या कोई भी Webhook URL (UltraMsg / Make / Zapier / Google Sheet):
-        webhookUrl: "",
+        // 2. या कोई भी Custom SMS API Gateway / Webhook URL:
+        customSmsUrl: "",
 
         // कितने स्टार पर Google रिव्यू भेजना है (4 और 5 स्टार = Good)
-        // 1, 2, 3 स्टार पर WhatsApp अलर्ट जाएगा:
+        // 1, 2, 3 स्टार पर Direct SMS अलर्ट जाएगा:
         minGoodStars: 4,
 
-        // होटल का नाम जो मैसेज में जाएगा:
+        // होटल का नाम जो SMS में जाएगा:
         hotelName: "Hotel The Sara, Guna",
 
         // मैसेज की हेडिंग:
-        alertHeading: "🚨 URGENT GUEST COMPLAINT ALERT",
+        alertHeading: "🚨 URGENT GUEST COMPLAINT SMS ALERT",
 
         // क्विक इश्यू ऑप्शंस जो कस्टमर सिलेक्ट कर सकता है:
         issueCategories: [
@@ -87,6 +87,16 @@ window.RESTAURANT_CONFIG = {
             "🧼 Cleanliness / Hygiene Issue",
             "🧾 Billing / Pricing Query"
         ]
+    },
+    // Backward-compatibility alias
+    managerAlert: {
+        enabled: true,
+        managerPhone: "8462063330",
+        altPhone: "9303284300",
+        fast2smsApiKey: "",
+        customSmsUrl: "",
+        minGoodStars: 4,
+        hotelName: "Hotel The Sara, Guna"
     },
 
     // ========================================================================

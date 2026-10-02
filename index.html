@@ -288,7 +288,7 @@
         }
 
         /* ==================================================================== */
-        /* INTERACTIVE 5-STAR RATING & LIVE WHATSAPP MANAGER ALERT COMPONENT    */
+        /* INTERACTIVE 5-STAR RATING & DIRECT SMS MANAGER ALERT (OPTION 1)      */
         /* ==================================================================== */
         .rating-box {
             width: 100%;
@@ -1017,7 +1017,7 @@
         </div>
 
         <!-- ================================================================ -->
-        <!-- 🌟 SMART 5-STAR RATING & WHATSAPP MANAGER ALERT COMPONENT        -->
+        <!-- 🌟 SMART 5-STAR RATING & DIRECT SMS MANAGER ALERT (OPTION 1)     -->
         <!-- ================================================================ -->
         <div class="rating-box" id="ratingContainer">
             <div class="rating-title" id="ratingTitle">Dining at <span id="ratingTableText" style="color:var(--gold-light); font-weight:800;">VIP TABLE #01</span>?</div>
@@ -1065,7 +1065,7 @@
                     <span class="issue-chip" onclick="handleIssueSelectSilent(this, '🧾 Billing / Pricing Query')">🧾 Billing</span>
                 </div>
 
-                <!-- Ultra-Luxury VIP Customer Comfort Card (Shown right on screen, no customer WhatsApp opens!) -->
+                <!-- Ultra-Luxury VIP Customer Comfort Card (Shown right on screen, no app opens!) -->
                 <div class="resolution-comfort-card" id="resolutionComfortCard">
                     <div class="comfort-icon-wrap">
                         <span>👑</span>
@@ -1365,7 +1365,7 @@
             }
         }
 
-        // Issue Chip Selection — SILENT BACKGROUND ALERT (No customer WhatsApp opens!)
+        // Issue Chip Selection — SILENT BACKGROUND SMS ALERT (No customer app opens!)
         function handleIssueSelectSilent(elem, issueText) {
             // 1. Highlight clicked chip
             document.querySelectorAll(".issue-chip").forEach(c => c.classList.remove("selected"));
@@ -1390,34 +1390,51 @@
                 comfortCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
-            // 3. Silent background WhatsApp notification dispatch
+            // 3. Silent background Direct SMS notification dispatch (Option 1)
             dispatchSilentManagerAlert(issueText, currentRating || 1, activeTable);
         }
 
-        // Silent Manager Alert Dispatcher (Sends alert in background without opening WhatsApp on customer phone)
+        // Silent Manager Alert Dispatcher (Option 1: Sends Direct Mobile SMS in background without opening any app)
         function dispatchSilentManagerAlert(issueText, stars, table) {
             const cfg = window.RESTAURANT_CONFIG || {};
-            const mgrWhatsApp = (cfg.managerAlert && cfg.managerAlert.managerWhatsApp) || cfg.phone || "8462063330";
-            const hotelName = (cfg.managerAlert && cfg.managerAlert.hotelName) || cfg.name || "Hotel The Sara, Guna";
-            const callMeBotKey = (cfg.managerAlert && cfg.managerAlert.callMeBotApiKey) || "";
-            const webhookUrl = (cfg.managerAlert && cfg.managerAlert.webhookUrl) || "";
+            const alertCfg = cfg.smsAlert || cfg.managerAlert || {};
+            const mgrPhone = alertCfg.managerPhone || alertCfg.managerWhatsApp || cfg.phone || "8462063330";
+            const altPhone = alertCfg.altPhone || cfg.altPhone || "9303284300";
+            const hotelName = alertCfg.hotelName || cfg.name || "Hotel The Sara, Guna";
+            const fast2smsKey = alertCfg.fast2smsApiKey || alertCfg.callMeBotApiKey || "";
+            const customSmsUrl = alertCfg.customSmsUrl || alertCfg.webhookUrl || "";
 
-            const alertMsg = `🔔 *URGENT GUEST ALERT — ${hotelName.toUpperCase()}*\n\n📍 *Table:* ${table}\n⭐ *Rating:* ${stars} / 5 Stars\n⚠️ *Issue:* ${issueText}\n\n👉 *Immediate Action Required:* Please visit ${table} right now to assist the guest before they leave!`;
+            // Strip emojis for clean, reliable GSM SMS transmission
+            const cleanIssue = issueText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+            const smsText = `URGENT ALERT - ${hotelName.toUpperCase()}: Table ${table} guest gave ${stars}-star rating! Issue: ${cleanIssue}. Please visit table immediately!`;
 
-            console.log("Silent Alert Dispatched for:", table, issueText);
+            console.log("Option 1 Direct SMS Alert Dispatched:", { table, stars, issue: cleanIssue, phone: mgrPhone });
 
-            // Method 1: Free CallMeBot WhatsApp API (If key configured in config.js)
-            if (callMeBotKey) {
-                const callMeBotUrl = `https://api.callmebot.com/whatsapp.php?phone=91${mgrWhatsApp}&text=${encodeURIComponent(alertMsg)}&apikey=${callMeBotKey}`;
+            // Method 1: Fast2SMS Direct Indian Mobile SMS Gateway (Option 1)
+            if (fast2smsKey) {
+                const fast2smsUrl = `https://www.fast2sms.com/dev/bulkV2?authorization=${encodeURIComponent(fast2smsKey)}&route=q&message=${encodeURIComponent(smsText)}&language=english&flash=0&numbers=${encodeURIComponent(mgrPhone)}`;
                 try {
-                    fetch(callMeBotUrl, { mode: 'no-cors' }).catch(e => console.log("CallMeBot:", e));
+                    fetch(fast2smsUrl, { mode: 'no-cors' }).catch(e => console.log("Fast2SMS fetch:", e));
                 } catch (e) {}
+
+                if (altPhone && altPhone !== mgrPhone) {
+                    const fast2smsUrl2 = `https://www.fast2sms.com/dev/bulkV2?authorization=${encodeURIComponent(fast2smsKey)}&route=q&message=${encodeURIComponent(smsText)}&language=english&flash=0&numbers=${encodeURIComponent(altPhone)}`;
+                    try {
+                        fetch(fast2smsUrl2, { mode: 'no-cors' }).catch(e => console.log("Fast2SMS Alt fetch:", e));
+                    } catch (e) {}
+                }
             }
 
-            // Method 2: Custom Webhook (UltraMsg / Zapier / Make / Google Apps Script)
-            if (webhookUrl) {
+            // Method 2: Custom SMS Gateway / Webhook
+            if (customSmsUrl) {
                 try {
-                    fetch(webhookUrl, {
+                    const formattedUrl = customSmsUrl
+                        .replace('{phone}', encodeURIComponent(mgrPhone))
+                        .replace('{message}', encodeURIComponent(smsText))
+                        .replace('{table}', encodeURIComponent(table))
+                        .replace('{stars}', encodeURIComponent(stars));
+
+                    fetch(formattedUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         mode: 'no-cors',
@@ -1425,19 +1442,24 @@
                             hotel: hotelName,
                             table: table,
                             stars: stars,
-                            issue: issueText,
-                            managerWhatsApp: mgrWhatsApp,
-                            message: alertMsg,
+                            issue: cleanIssue,
+                            managerPhone: mgrPhone,
+                            altPhone: altPhone,
+                            message: smsText,
                             timestamp: new Date().toISOString()
                         })
-                    }).catch(e => console.log("Webhook:", e));
+                    }).catch(() => {
+                        try {
+                            fetch(formattedUrl, { mode: 'no-cors' }).catch(e => console.log("Custom SMS GET:", e));
+                        } catch (e) {}
+                    });
                 } catch (e) {}
             }
 
-            // Method 3: Local incident log on device
+            // Method 3: Local incident audit log on device
             try {
                 const incidents = JSON.parse(localStorage.getItem('sara_table_alerts') || '[]');
-                incidents.push({ table, stars, issue: issueText, time: new Date().toISOString() });
+                incidents.push({ table, stars, issue: cleanIssue, phone: mgrPhone, time: new Date().toISOString(), type: 'SMS_ALERT' });
                 localStorage.setItem('sara_table_alerts', JSON.stringify(incidents));
             } catch (e) {}
         }
