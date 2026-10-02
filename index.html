@@ -1523,12 +1523,12 @@
 
             // 1. OPTION C: Telegram Instant Emergency Push Notification (100% Free Lifetime)
             if (botToken && chatId) {
-                const tgMessage = `🚨 <b>${hotelName.toUpperCase()} — URGENT COMPLAINT ALERT!</b>\n\n` +
+                const tgMessage = `👑 <b>${hotelName.toUpperCase()} — GUEST FEEDBACK ALERT</b>\n\n` +
+                                  `💬 <b>Customer Feedback / Suggestion:</b>\n<i>"${cleanIssue}"</i>\n\n` +
                                   `📍 <b>Location:</b> ${table}\n` +
                                   `⭐ <b>Rating Given:</b> ${stars} / 5 Stars\n` +
-                                  `⚠️ <b>Problem Reported:</b> ${cleanIssue}\n` +
                                   `🕒 <b>Time:</b> ${timeNow}\n\n` +
-                                  `👉 <b>Immediate Action Required:</b>\nManager please step over to <b>${table}</b> right now to resolve this before guest leaves!`;
+                                  `👉 <b>Manager Action:</b> Please attend <b>${table}</b> immediately to delight the guest!`;
 
                 const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(tgMessage)}&parse_mode=HTML`;
                 try {
