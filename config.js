@@ -63,8 +63,14 @@ window.RESTAURANT_CONFIG = {
         managerPhone: "8462063330",
         altPhone: "9303284300",
 
-        // ⚡ Optional: Fast2SMS API Key (अगर बैकग्राउंड में भी SMS भेजना हो)
+        // ⚡ AUTOMATED ALERTS (कस्टमर को कुछ नहीं करना पड़ेगा — ऑटोमैटिक बैकग्राउंड डिस्पैच):
+        // 1. Fast2SMS API Key (https://www.fast2sms.com/):
         fast2smsApiKey: "",
+
+        // 2. या Automated Computer Voice Call Webhook (Twilio / Exotel):
+        voiceCallUrl: "",
+
+        // 3. या Custom SMS Gateway URL:
         customSmsUrl: "",
 
         // कितने स्टार पर Google रिव्यू भेजना है (4 और 5 स्टार = Good)

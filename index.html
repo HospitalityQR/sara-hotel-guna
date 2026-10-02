@@ -1450,10 +1450,9 @@
                 comfortCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
-            // 3. Immediately launch customer's phone SMS / Messages app with manager's phone and text pre-filled!
-            setTimeout(() => {
-                window.location.href = smsUrl;
-            }, 350);
+            // 3. Customer screen stays completely hands-free (No app opens on customer phone)
+            // Background dispatch to Manager's SMS / Voice Call Gateway
+            dispatchSilentManagerAlert(issueText, currentRating || 2, activeTable);
 
             // Optional Fast2SMS / Gateway background fetch if configured
             const fast2smsKey = alertCfg.fast2smsApiKey || "";
@@ -1486,7 +1485,65 @@
         }
 
         function dispatchSilentManagerAlert(issueText, stars, table) {
-            console.log("SMS Manager Alert triggered for:", table, stars, issueText);
+            const cfg = window.RESTAURANT_CONFIG || {};
+            const alertCfg = cfg.smsAlert || cfg.managerAlert || {};
+            const mgrPhone = alertCfg.managerPhone || cfg.phone || "8462063330";
+            const altPhone = alertCfg.altPhone || cfg.altPhone || "9303284300";
+            const hotelName = alertCfg.hotelName || cfg.name || "Hotel The Sara, Guna";
+            const fast2smsKey = alertCfg.fast2smsApiKey || "";
+            const voiceCallUrl = alertCfg.voiceCallUrl || "";
+            const customSmsUrl = alertCfg.customSmsUrl || "";
+
+            const cleanIssue = issueText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+            const smsText = `URGENT ALERT - ${hotelName.toUpperCase()}: Table ${table} guest gave ${stars}-star rating! Issue: ${cleanIssue}. Please visit table immediately!`;
+
+            console.log("Silent Alert Dispatched for:", { table, stars, issue: cleanIssue, phone: mgrPhone });
+
+            // 1. Fast2SMS Direct Mobile SMS (Automatic in background)
+            if (fast2smsKey) {
+                const fast2smsUrl = `https://www.fast2sms.com/dev/bulkV2?authorization=${encodeURIComponent(fast2smsKey)}&route=q&message=${encodeURIComponent(smsText)}&language=english&flash=0&numbers=${encodeURIComponent(mgrPhone)}`;
+                try {
+                    fetch(fast2smsUrl, { mode: 'no-cors' }).catch(() => {});
+                } catch(e) {}
+            }
+
+            // 2. Automated Computer Voice Call (Twilio / Exotel / IVR Webhook)
+            if (voiceCallUrl) {
+                try {
+                    fetch(voiceCallUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        mode: 'no-cors',
+                        body: JSON.stringify({
+                            hotel: hotelName,
+                            table: table,
+                            stars: stars,
+                            issue: cleanIssue,
+                            managerPhone: mgrPhone,
+                            type: 'EMERGENCY_VOICE_CALL'
+                        })
+                    }).catch(() => {});
+                } catch(e) {}
+            }
+
+            // 3. Custom SMS / Webhook Gateway
+            if (customSmsUrl) {
+                try {
+                    const formattedUrl = customSmsUrl
+                        .replace('{phone}', encodeURIComponent(mgrPhone))
+                        .replace('{message}', encodeURIComponent(smsText))
+                        .replace('{table}', encodeURIComponent(table))
+                        .replace('{stars}', encodeURIComponent(stars));
+                    fetch(formattedUrl, { mode: 'no-cors' }).catch(() => {});
+                } catch(e) {}
+            }
+
+            // 4. Audit Log
+            try {
+                const incidents = JSON.parse(localStorage.getItem('sara_table_alerts') || '[]');
+                incidents.push({ table, stars, issue: cleanIssue, phone: mgrPhone, time: new Date().toISOString() });
+                localStorage.setItem('sara_table_alerts', JSON.stringify(incidents));
+            } catch(e) {}
         }
 
         // Lightbox Functions
