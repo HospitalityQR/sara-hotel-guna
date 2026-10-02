@@ -62,6 +62,13 @@ window.RESTAURANT_CONFIG = {
         // होटल मालिक या मैनेजर का WhatsApp नंबर जिस पर अलर्ट जाएगा:
         managerWhatsApp: "8462063330",
         
+        // ⚡ BACKGROUND SILENT WHATSAPP DISPATCH (कस्टमर का WhatsApp नहीं खुलेगा, बैकग्राउंड में जाएगा)
+        // 1. CallMeBot फ्री WhatsApp API Key (https://www.callmebot.com/blog/free-api-whatsapp-messages/):
+        callMeBotApiKey: "", 
+
+        // 2. या कोई भी Webhook URL (UltraMsg / Make / Zapier / Google Sheet):
+        webhookUrl: "",
+
         // कितने स्टार पर Google रिव्यू भेजना है (4 और 5 स्टार = Good)
         // 1, 2, 3 स्टार पर WhatsApp अलर्ट जाएगा:
         minGoodStars: 4,

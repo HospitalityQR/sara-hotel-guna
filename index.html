@@ -443,6 +443,157 @@
             font-weight: 700;
         }
 
+        /* Ultra-Luxury VIP Customer Comfort & Reassurance Card */
+        .resolution-comfort-card {
+            display: none;
+            background: linear-gradient(145deg, rgba(28, 17, 9, 0.98) 0%, rgba(16, 9, 4, 0.99) 100%);
+            border: 1.5px solid var(--gold-primary);
+            border-radius: 16px;
+            padding: 18px 14px 14px;
+            margin-top: 10px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.25);
+            animation: fadeInScale 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comfort-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #f9e29c 0%, #d4af37 60%, #9e7c1f 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            margin-bottom: 8px;
+        }
+
+        .comfort-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid #22c55e;
+            padding: 3px 12px;
+            border-radius: 14px;
+            font-size: 9.5px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            color: #86efac;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .comfort-pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 8px #22c55e;
+            animation: pulseWa 1.4s infinite;
+        }
+
+        .comfort-title {
+            font-family: var(--font-serif);
+            font-size: 15px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 2px;
+            letter-spacing: 0.6px;
+        }
+
+        .comfort-subtitle {
+            font-size: 10.5px;
+            color: var(--gold-light);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .comfort-table-tag {
+            display: inline-block;
+            background: rgba(12, 7, 4, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #fca5a5;
+            margin-bottom: 12px;
+        }
+
+        .comfort-body {
+            background: rgba(12, 7, 4, 0.7);
+            border-radius: 12px;
+            padding: 12px 10px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--gold-primary);
+            text-align: left;
+        }
+
+        .comfort-msg-hi {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #ffffff;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .comfort-msg-hi b {
+            color: var(--gold-light);
+        }
+
+        .comfort-msg-en {
+            font-size: 10.5px;
+            line-height: 1.4;
+            color: #d1d5db;
+            font-style: italic;
+        }
+
+        .hospitality-promise-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .promise-item {
+            background: rgba(18, 10, 5, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 10px;
+            padding: 8px 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .promise-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .promise-title {
+            font-size: 10px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1px;
+        }
+
+        .promise-desc {
+            font-size: 8.5px;
+            color: var(--gold-light);
+            line-height: 1.3;
+        }
+
+        .comfort-footer-note {
+            font-size: 9.5px;
+            color: #a38c75;
+            letter-spacing: 0.5px;
+        }
+
         .feedback-input {
             width: 100%;
             background: rgba(12, 7, 4, 0.9);
@@ -896,41 +1047,72 @@
                 </a>
             </div>
 
-            <!-- Screen 2: Bad Rating (1 or 2 Stars) -> BLOCKS Google & Shows Instant WhatsApp Dispatch! -->
+            <!-- Screen 2: Bad Rating (1, 2, or 3 Stars) -> BLOCKS Google & Triggers Silent Background Alert -->
             <div class="bad-review-banner" id="badReviewBanner">
-                <div class="bad-title">
+                <div class="bad-title" id="badTitleText">
                     <span>⚠️</span> We are deeply sorry your visit wasn't 5-star perfection.
                 </div>
                 <div class="bad-desc" id="badDescText">
-                    Tap the issue below to alert the General Manager on WhatsApp immediately:
+                    Please tap the issue below so we can assist your table immediately:
                 </div>
 
-                <!-- Issue Chips: Tapping any chip immediately triggers WhatsApp with WhatsApp Logo! -->
+                <!-- Issue Chips: Tapping any chip immediately triggers silent alert & reveals VIP comfort card -->
                 <div class="issue-chips" id="issueChipsContainer">
-                    <span class="issue-chip" onclick="handleIssueSelectAndOpenWA(this, '🍲 Food Taste / Quality Issue')">🍲 Food Taste</span>
-                    <span class="issue-chip" onclick="handleIssueSelectAndOpenWA(this, '⏱️ Slow Service / Waiter Delay')">⏱️ Slow Service</span>
-                    <span class="issue-chip" onclick="handleIssueSelectAndOpenWA(this, '❄️ AC / Ambience / Noise')">❄️ AC / Ambience</span>
-                    <span class="issue-chip" onclick="handleIssueSelectAndOpenWA(this, '🧼 Cleanliness / Hygiene')">🧼 Cleanliness</span>
-                    <span class="issue-chip" onclick="handleIssueSelectAndOpenWA(this, '🧾 Billing / Pricing Query')">🧾 Billing</span>
+                    <span class="issue-chip" onclick="handleIssueSelectSilent(this, '🍲 Food Taste / Quality Issue')">🍲 Food Taste</span>
+                    <span class="issue-chip" onclick="handleIssueSelectSilent(this, '⏱️ Slow Service / Waiter Delay')">⏱️ Slow Service</span>
+                    <span class="issue-chip" onclick="handleIssueSelectSilent(this, '❄️ AC / Ambience / Noise')">❄️ AC / Ambience</span>
+                    <span class="issue-chip" onclick="handleIssueSelectSilent(this, '🧼 Cleanliness / Hygiene')">🧼 Cleanliness</span>
+                    <span class="issue-chip" onclick="handleIssueSelectSilent(this, '🧾 Billing / Pricing Query')">🧾 Billing</span>
                 </div>
 
-                <!-- Instant WhatsApp Dispatch Card (Revealed when an issue is tapped) -->
-                <div id="waDispatchCard" style="display:none; text-align:center; padding:14px 10px; background:rgba(18, 10, 5, 0.95); border:1.5px solid #22c55e; border-radius:14px; margin-top:8px; animation:fadeInScale 0.3s ease;">
-                    <!-- Glowing WhatsApp Logo SVG -->
-                    <div style="width:58px; height:58px; border-radius:50%; background:#25D366; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 0 24px rgba(37, 211, 102, 0.6); margin-bottom:8px; animation:pulseWa 1.4s infinite;">
-                        <svg width="34" height="34" viewBox="0 0 24 24" fill="#ffffff">
-                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                        </svg>
+                <!-- Ultra-Luxury VIP Customer Comfort Card (Shown right on screen, no customer WhatsApp opens!) -->
+                <div class="resolution-comfort-card" id="resolutionComfortCard">
+                    <div class="comfort-icon-wrap">
+                        <span>👑</span>
                     </div>
-                    <div style="font-size:13px; font-weight:800; color:#86efac; margin-bottom:3px;">
-                        Opening WhatsApp to Alert Manager...
+                    
+                    <div class="comfort-badge">
+                        <span class="comfort-pulse-dot"></span>
+                        <span>PRIORITY MANAGER ESCALATION ACTIVE</span>
                     </div>
-                    <div style="font-size:10.5px; color:#e2e8f0; margin-bottom:10px;" id="waDispatchSubtext">
-                        Connecting to Hotel The Sara General Manager
+
+                    <h3 class="comfort-title">हम आपके अनुभव के लिए क्षमाप्रार्थी हैं</h3>
+                    <div class="comfort-subtitle">Your Comfort & Satisfaction Are Our Highest Priority</div>
+
+                    <div class="comfort-table-tag">
+                        📍 <span id="comfortTableDisplay">VIP TABLE #01</span> • <span id="comfortIssueDisplay">🍲 Food Taste</span>
                     </div>
-                    <a href="#" class="alert-manager-btn" id="btnDirectWaOpen" target="_blank" style="background:#25D366; box-shadow:0 6px 18px rgba(37, 211, 102, 0.45);">
-                        <span>🟢</span> Open WhatsApp Now
-                    </a>
+
+                    <div class="comfort-body">
+                        <p class="comfort-msg-hi">
+                            "आपकी टेबल की सूचना सीधे हमारे <b>जनरल मैनेजर</b> तक पहुँचा दी गई है। हमारे मैनेजर स्वयं आपकी टेबल पर आकर इसे तुरंत ठीक कर रहे हैं।"
+                        </p>
+                        <p class="comfort-msg-en">
+                            Our General Manager has been discreetly alerted and is walking over to your table right now to assist you personally. Please allow us a moment to make this right.
+                        </p>
+                    </div>
+
+                    <!-- Hospitality Perks Banner -->
+                    <div class="hospitality-promise-box">
+                        <div class="promise-item">
+                            <span class="promise-icon">⚡</span>
+                            <div>
+                                <div class="promise-title">Instant Redo</div>
+                                <div class="promise-desc">Manager is stepping over to replace your dish or adjust service.</div>
+                            </div>
+                        </div>
+                        <div class="promise-item">
+                            <span class="promise-icon">🍨</span>
+                            <div>
+                                <div class="promise-title">Complimentary Delight</div>
+                                <div class="promise-desc">Please enjoy a special complimentary dessert on us while we attend you!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comfort-footer-note">
+                        ✨ <i>Hotel The Sara — Fine Dining & Royal Hospitality</i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1154,59 +1336,105 @@
                     }
                 }, 1100);
             } else {
-                // 1, 2, or 3 Stars -> BLOCKS GOOGLE! Opens Urgent Manager WhatsApp Alert Screen
+                // 1, 2, or 3 Stars -> BLOCKS GOOGLE! Opens Immediate Staff Assistance Screen
                 goodBanner.classList.remove("active");
                 badBanner.classList.add("active");
 
-                // Hide dispatch card until customer selects the specific issue
-                const waCard = document.getElementById("waDispatchCard");
-                if (waCard) waCard.style.display = "none";
+                // Reset issue selector & hide comfort card until customer taps an issue
+                const chipsBox = document.getElementById("issueChipsContainer");
+                if (chipsBox) chipsBox.style.display = "flex";
+                const descBox = document.getElementById("badDescText");
+                if (descBox) descBox.style.display = "block";
+                const comfortCard = document.getElementById("resolutionComfortCard");
+                if (comfortCard) comfortCard.style.display = "none";
                 document.querySelectorAll(".issue-chip").forEach(c => c.classList.remove("selected"));
             }
         }
 
-        // Issue Chip Selection & Immediate WhatsApp Dispatch with Logo
-        function handleIssueSelectAndOpenWA(elem, issueText) {
+        // Issue Chip Selection — SILENT BACKGROUND ALERT (No customer WhatsApp opens!)
+        function handleIssueSelectSilent(elem, issueText) {
             // 1. Highlight clicked chip
             document.querySelectorAll(".issue-chip").forEach(c => c.classList.remove("selected"));
             if (elem) elem.classList.add("selected");
             selectedIssue = issueText;
 
-            // 2. Fetch config & manager WhatsApp number
+            // 2. Hide issue selector and reveal VIP Comfort Card right on screen
+            const chipsBox = document.getElementById("issueChipsContainer");
+            if (chipsBox) chipsBox.style.display = "none";
+            const descBox = document.getElementById("badDescText");
+            if (descBox) descBox.style.display = "none";
+
+            // Update Comfort Card dynamic text
+            const comfortTable = document.getElementById("comfortTableDisplay");
+            if (comfortTable) comfortTable.innerText = activeTable;
+            const comfortIssue = document.getElementById("comfortIssueDisplay");
+            if (comfortIssue) comfortIssue.innerText = issueText;
+
+            const comfortCard = document.getElementById("resolutionComfortCard");
+            if (comfortCard) {
+                comfortCard.style.display = "block";
+                comfortCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // 3. Silent background WhatsApp notification dispatch
+            dispatchSilentManagerAlert(issueText, currentRating || 1, activeTable);
+        }
+
+        // Silent Manager Alert Dispatcher (Sends alert in background without opening WhatsApp on customer phone)
+        function dispatchSilentManagerAlert(issueText, stars, table) {
             const cfg = window.RESTAURANT_CONFIG || {};
             const mgrWhatsApp = (cfg.managerAlert && cfg.managerAlert.managerWhatsApp) || cfg.phone || "8462063330";
             const hotelName = (cfg.managerAlert && cfg.managerAlert.hotelName) || cfg.name || "Hotel The Sara, Guna";
+            const callMeBotKey = (cfg.managerAlert && cfg.managerAlert.callMeBotApiKey) || "";
+            const webhookUrl = (cfg.managerAlert && cfg.managerAlert.webhookUrl) || "";
 
-            const waCard = document.getElementById("waDispatchCard");
-            const subtext = document.getElementById("waDispatchSubtext");
-            const btnOpen = document.getElementById("btnDirectWaOpen");
+            const alertMsg = `🔔 *URGENT GUEST ALERT — ${hotelName.toUpperCase()}*\n\n📍 *Table:* ${table}\n⭐ *Rating:* ${stars} / 5 Stars\n⚠️ *Issue:* ${issueText}\n\n👉 *Immediate Action Required:* Please visit ${table} right now to assist the guest before they leave!`;
 
-            const starsCount = currentRating || 1;
-            const alertMsg = `🔔 *URGENT GUEST ALERT — ${hotelName.toUpperCase()}*\n\n📍 *Table:* ${activeTable}\n⭐ *Rating Given:* ${starsCount} / 5 Stars\n⚠️ *Issue Reported:* ${issueText}\n\n👉 *Immediate Action Required:* Please visit ${activeTable} right now to assist the guest before they leave!`;
+            console.log("Silent Alert Dispatched for:", table, issueText);
 
-            const encoded = encodeURIComponent(alertMsg);
-            const waUrl = `https://wa.me/91${mgrWhatsApp}?text=${encoded}`;
-
-            if (subtext) {
-                subtext.innerHTML = `Table: <b style="color:#f9e29c;">${activeTable}</b> • Issue: <b style="color:#fca5a5;">${issueText}</b><br><span style="color:#22c55e; font-weight:600;">Redirecting to Manager WhatsApp...</span>`;
-            }
-            if (btnOpen) {
-                btnOpen.href = waUrl;
-            }
-            if (waCard) {
-                waCard.style.display = "block";
-                waCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            // Method 1: Free CallMeBot WhatsApp API (If key configured in config.js)
+            if (callMeBotKey) {
+                const callMeBotUrl = `https://api.callmebot.com/whatsapp.php?phone=91${mgrWhatsApp}&text=${encodeURIComponent(alertMsg)}&apikey=${callMeBotKey}`;
+                try {
+                    fetch(callMeBotUrl, { mode: 'no-cors' }).catch(e => console.log("CallMeBot:", e));
+                } catch (e) {}
             }
 
-            // 3. Launch WhatsApp app / web automatically after 600ms
-            setTimeout(() => {
-                window.location.href = waUrl;
-            }, 600);
+            // Method 2: Custom Webhook (UltraMsg / Zapier / Make / Google Apps Script)
+            if (webhookUrl) {
+                try {
+                    fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        mode: 'no-cors',
+                        body: JSON.stringify({
+                            hotel: hotelName,
+                            table: table,
+                            stars: stars,
+                            issue: issueText,
+                            managerWhatsApp: mgrWhatsApp,
+                            message: alertMsg,
+                            timestamp: new Date().toISOString()
+                        })
+                    }).catch(e => console.log("Webhook:", e));
+                } catch (e) {}
+            }
+
+            // Method 3: Local incident log on device
+            try {
+                const incidents = JSON.parse(localStorage.getItem('sara_table_alerts') || '[]');
+                incidents.push({ table, stars, issue: issueText, time: new Date().toISOString() });
+                localStorage.setItem('sara_table_alerts', JSON.stringify(incidents));
+            } catch (e) {}
         }
 
         // Backward compatibility
+        function handleIssueSelectAndOpenWA(elem, issueText) {
+            handleIssueSelectSilent(elem, issueText);
+        }
+
         function selectIssue(elem, issueText) {
-            handleIssueSelectAndOpenWA(elem, issueText);
+            handleIssueSelectSilent(elem, issueText);
         }
 
         // Lightbox Functions
