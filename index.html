@@ -1161,10 +1161,13 @@
                     <div style="font-size:11.5px; color:#ffffff; line-height:1.45; margin-bottom:10px;">
                         आपकी टेबल (<b id="successTableBadge" style="color:var(--gold-light);">VIP TABLE #01</b>) का सुझाव सीधे हमारे <b>जनरल मैनेजर</b> तक सुरक्षित रूप से पहुँच गया है।
                     </div>
-                    <div style="margin: 4px 0 10px; padding: 8px 12px; background: rgba(34, 197, 94, 0.15); border: 1.5px solid #22c55e; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: #86efac; width: 100%;">
+                    <div style="margin: 4px 0 8px; padding: 8px 12px; background: rgba(34, 197, 94, 0.15); border: 1.5px solid #22c55e; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: #86efac; width: 100%;">
                         <span class="comfort-pulse-dot" style="background:#22c55e; box-shadow:0 0 8px #22c55e;"></span>
                         <span>मैनेजर को सुझाव प्राप्त हो गया है • धन्यवाद</span>
                     </div>
+                    <a id="btnSuccessWhatsApp" href="#" target="_blank" style="margin: 4px 0 10px; padding: 9px 12px; background: #25D366; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; font-weight: 700; color: #ffffff; text-decoration: none; width: 100%; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);">
+                        <span>💬 सीधे मैनेजर को WhatsApp भेजें</span>
+                    </a>
                     <div style="font-size:9.5px; color:#a38c75;">
                         ✨ <i>Hotel The Sara — Fine Dining & Royal Hospitality</i>
                     </div>
@@ -1480,13 +1483,23 @@
             const successCard = document.getElementById("feedbackSuccessCard");
             const successTable = document.getElementById("successTableBadge");
             if (successTable) successTable.innerText = activeTable;
+
+            // Set up direct WhatsApp link for manager (8462063330)
+            const waBtn = document.getElementById("btnSuccessWhatsApp");
+            if (waBtn) {
+                const timeNow = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+                const waText = `👑 *HOTEL THE SARA — GUEST FEEDBACK*\n\n📍 *Table:* ${activeTable}\n⭐ *Rating:* ${currentRating || 2}/5 Stars\n💬 *Feedback:* ${finalFeedback}\n⏰ *Time:* ${timeNow}`;
+                waBtn.href = `https://wa.me/918462063330?text=${encodeURIComponent(waText)}`;
+            }
+
             if (successCard) {
                 successCard.style.display = "block";
                 successCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
-            // 1. Permanently save feedback in system records & Google Sheets (Only 1, 2, 3 Stars)
+            // 1. Permanently save feedback in system records & dispatch silent notification
             saveGuestFeedbackEntry(activeTable, currentRating || 2, finalFeedback);
+            dispatchSilentManagerAlert(finalFeedback, currentRating || 2, activeTable);
         }
 
         // Save Guest Feedback permanently in local database records and Google Sheets
@@ -1508,7 +1521,7 @@
                 console.log("Feedback saved to records:", feedbacks[feedbacks.length - 1]);
             } catch(e) {}
 
-            // Google Sheets Live Logger (Auto-append to Manager's Excel Sheet)
+            // Google Sheets Live Logger (Auto-append if configured)
             const cfg = window.RESTAURANT_CONFIG || {};
             const sheetCfg = cfg.googleSheets || {};
             if (sheetCfg.enabled && sheetCfg.webhookUrl) {
@@ -1532,9 +1545,31 @@
             }
         }
 
+        // Instant Silent Alert (Zero Phone Calls • 100% Free Lifetime Delivery)
         function dispatchSilentManagerAlert(issueText, stars, table) {
-            // Telegram alerts and automated calls completely disabled
-            // 1, 2, 3 star customer feedback is automatically pushed to Google Sheets & records
+            const cfg = window.RESTAURANT_CONFIG || {};
+            const tgCfg = cfg.telegramAlert || {};
+            const botToken = tgCfg.botToken || "";
+            const chatId = tgCfg.chatId || "";
+            const hotelName = tgCfg.hotelName || cfg.name || "Hotel The Sara, Guna";
+
+            if (tgCfg.enabled && botToken && chatId) {
+                const cleanIssue = issueText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+                const timeNow = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+                const tgMessage = `👑 <b>${hotelName.toUpperCase()} — GUEST FEEDBACK RECORD</b>\n\n` +
+                                  `📍 <b>Table:</b> ${table}\n` +
+                                  `⭐ <b>Rating:</b> ${stars} / 5 Stars\n` +
+                                  `💬 <b>Customer Suggestion:</b>\n<i>"${cleanIssue}"</i>\n\n` +
+                                  `🕒 <b>Time:</b> ${timeNow}\n\n` +
+                                  `👉 <b>Manager:</b> Please visit ${table} to delight the guest!`;
+
+                const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(tgMessage)}&parse_mode=HTML`;
+                try {
+                    fetch(tgUrl, { keepalive: true }).catch(() => {
+                        fetch(tgUrl, { mode: 'no-cors', keepalive: true }).catch(() => {});
+                    });
+                } catch(e) {}
+            }
         }
 
         // Lightbox Functions

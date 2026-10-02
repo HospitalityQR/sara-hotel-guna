@@ -59,11 +59,10 @@ window.RESTAURANT_CONFIG = {
     // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Sends Silent Instant Alert to Manager's Telegram!
     // (Customer does NOTHING. VIP apology card is shown. Loud alert rings on Manager's Telegram)
     telegramAlert: {
-        enabled: false,
-        botToken: "",
-        chatId: "",
-        enableVoiceCall: false,
-        telegramUsername: "",
+        enabled: true,
+        botToken: "8723399785:AAE5lQaDufvupDSg89egxqMUQ6Rvn9k17eY",
+        chatId: "1208521281",
+        enableVoiceCall: false, // NO CALLS - Pure silent instant text alert
         hotelName: "Hotel The Sara, Guna",
         minGoodStars: 4
     },
