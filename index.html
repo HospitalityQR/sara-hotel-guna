@@ -1325,16 +1325,14 @@
             const minGood = (cfg.managerAlert && cfg.managerAlert.minGoodStars) || 4;
 
             if (rating >= minGood) {
-                // 4 or 5 Stars -> Celebration & Google Review
+                // 4 or 5 Stars -> DIRECTLY REDIRECT TO GOOGLE REVIEW INSTANTLY!
                 badBanner.classList.remove("active");
                 goodBanner.classList.add("active");
 
-                // Auto-open Google Review after 1.1s for effortless 5-star review flow
-                setTimeout(() => {
-                    if (cfg.googleReviewUrl) {
-                        window.open(cfg.googleReviewUrl, "_blank");
-                    }
-                }, 1100);
+                // Direct instant redirect to Google Maps Review without delay or popup blockers
+                if (cfg.googleReviewUrl) {
+                    window.location.href = cfg.googleReviewUrl;
+                }
             } else {
                 // 1, 2, or 3 Stars -> BLOCKS GOOGLE! Opens Immediate Staff Assistance Screen
                 goodBanner.classList.remove("active");
@@ -1348,6 +1346,9 @@
                 const comfortCard = document.getElementById("resolutionComfortCard");
                 if (comfortCard) comfortCard.style.display = "none";
                 document.querySelectorAll(".issue-chip").forEach(c => c.classList.remove("selected"));
+
+                // Dispatch initial silent alert right on star click!
+                dispatchSilentManagerAlert("Customer gave low star rating (Selecting issue)", rating, activeTable);
             }
         }
 
