@@ -1124,13 +1124,11 @@
                         </p>
                     </div>
 
-                    <!-- Direct 1-Tap SMS Alert Button -->
-                    <a href="#" id="directSmsAlertBtn" class="direct-sms-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
-                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                        </svg>
-                        <span>मैनेजर को SMS भेजें (1-Tap Send SMS) →</span>
-                    </a>
+                    <!-- Live Manager Alert Dispatched Status Pill -->
+                    <div style="margin: 14px 0 10px; padding: 10px 14px; background: rgba(34, 197, 94, 0.15); border: 1.5px solid #22c55e; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 12.5px; font-weight: 700; color: #86efac; width: 100%;">
+                        <span class="comfort-pulse-dot" style="background:#22c55e; box-shadow:0 0 8px #22c55e;"></span>
+                        <span>मैनेजर को सूचना पहुँचा दी गई है • मैनेजर आ रहे हैं</span>
+                    </div>
 
                     <!-- Hospitality Perks Banner -->
                     <div class="hospitality-promise-box">
@@ -1486,28 +1484,46 @@
 
         function dispatchSilentManagerAlert(issueText, stars, table) {
             const cfg = window.RESTAURANT_CONFIG || {};
-            const alertCfg = cfg.smsAlert || cfg.managerAlert || {};
-            const mgrPhone = alertCfg.managerPhone || cfg.phone || "8462063330";
-            const altPhone = alertCfg.altPhone || cfg.altPhone || "9303284300";
-            const hotelName = alertCfg.hotelName || cfg.name || "Hotel The Sara, Guna";
-            const fast2smsKey = alertCfg.fast2smsApiKey || "";
-            const voiceCallUrl = alertCfg.voiceCallUrl || "";
-            const customSmsUrl = alertCfg.customSmsUrl || "";
+            const tgCfg = cfg.telegramAlert || {};
+            const botToken = tgCfg.botToken || "";
+            const chatId = tgCfg.chatId || "";
+            const hotelName = tgCfg.hotelName || cfg.name || "Hotel The Sara, Guna";
 
             const cleanIssue = issueText.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
-            const smsText = `URGENT ALERT - ${hotelName.toUpperCase()}: Table ${table} guest gave ${stars}-star rating! Issue: ${cleanIssue}. Please visit table immediately!`;
+            const timeNow = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
 
-            console.log("Silent Alert Dispatched for:", { table, stars, issue: cleanIssue, phone: mgrPhone });
+            console.log("Silent Alert Dispatched for:", { table, stars, issue: cleanIssue });
 
-            // 1. Fast2SMS Direct Mobile SMS (Automatic in background)
-            if (fast2smsKey) {
-                const fast2smsUrl = `https://www.fast2sms.com/dev/bulkV2?authorization=${encodeURIComponent(fast2smsKey)}&route=q&message=${encodeURIComponent(smsText)}&language=english&flash=0&numbers=${encodeURIComponent(mgrPhone)}`;
+            // 1. OPTION C: Telegram Instant Emergency Push Notification (100% Free Lifetime)
+            if (botToken && chatId) {
+                const tgMessage = `🚨 <b>${hotelName.toUpperCase()} — URGENT COMPLAINT ALERT!</b>\n\n` +
+                                  `📍 <b>Location:</b> ${table}\n` +
+                                  `⭐ <b>Rating Given:</b> ${stars} / 5 Stars\n` +
+                                  `⚠️ <b>Problem Reported:</b> ${cleanIssue}\n` +
+                                  `🕒 <b>Time:</b> ${timeNow}\n\n` +
+                                  `👉 <b>Immediate Action Required:</b>\nManager please step over to <b>${table}</b> right now to resolve this before guest leaves!`;
+
+                const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(tgMessage)}&parse_mode=HTML`;
                 try {
-                    fetch(fast2smsUrl, { mode: 'no-cors' }).catch(() => {});
+                    fetch(tgUrl, { mode: 'no-cors' })
+                        .then(() => console.log("Telegram alert delivered successfully!"))
+                        .catch(e => console.log("Telegram alert error:", e));
                 } catch(e) {}
             }
 
-            // 2. Automated Computer Voice Call (Twilio / Exotel / IVR Webhook)
+            // 2. Fallbacks: SMS / Voice Call
+            const alertCfg = cfg.smsAlert || cfg.managerAlert || {};
+            const mgrPhone = alertCfg.managerPhone || cfg.phone || "8462063330";
+            const fast2smsKey = alertCfg.fast2smsApiKey || "";
+            const voiceCallUrl = alertCfg.voiceCallUrl || "";
+            const customSmsUrl = alertCfg.customSmsUrl || "";
+            const smsText = `URGENT ALERT - ${hotelName.toUpperCase()}: Table ${table} guest gave ${stars}-star rating! Issue: ${cleanIssue}. Visit table now!`;
+
+            if (fast2smsKey) {
+                const fast2smsUrl = `https://www.fast2sms.com/dev/bulkV2?authorization=${encodeURIComponent(fast2smsKey)}&route=q&message=${encodeURIComponent(smsText)}&language=english&flash=0&numbers=${encodeURIComponent(mgrPhone)}`;
+                try { fetch(fast2smsUrl, { mode: 'no-cors' }).catch(() => {}); } catch(e) {}
+            }
+
             if (voiceCallUrl) {
                 try {
                     fetch(voiceCallUrl, {
@@ -1526,22 +1542,10 @@
                 } catch(e) {}
             }
 
-            // 3. Custom SMS / Webhook Gateway
-            if (customSmsUrl) {
-                try {
-                    const formattedUrl = customSmsUrl
-                        .replace('{phone}', encodeURIComponent(mgrPhone))
-                        .replace('{message}', encodeURIComponent(smsText))
-                        .replace('{table}', encodeURIComponent(table))
-                        .replace('{stars}', encodeURIComponent(stars));
-                    fetch(formattedUrl, { mode: 'no-cors' }).catch(() => {});
-                } catch(e) {}
-            }
-
-            // 4. Audit Log
+            // 3. Audit Log in localStorage
             try {
                 const incidents = JSON.parse(localStorage.getItem('sara_table_alerts') || '[]');
-                incidents.push({ table, stars, issue: cleanIssue, phone: mgrPhone, time: new Date().toISOString() });
+                incidents.push({ table, stars, issue: cleanIssue, time: new Date().toISOString(), type: 'OPTION_C_ALERT' });
                 localStorage.setItem('sara_table_alerts', JSON.stringify(incidents));
             } catch(e) {}
         }

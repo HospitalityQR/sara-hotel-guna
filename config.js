@@ -53,34 +53,24 @@ window.RESTAURANT_CONFIG = {
     autoRedirectDelayMs: 1200,
 
     // ========================================================================
-    // 4. DIRECT PHONE SMS ALERT TO MANAGER (SMART REVIEW FILTER)
+    // 4. OPTION C: TELEGRAM INSTANT EMERGENCY ALERT ENGINE (100% FREE LIFETIME)
     // ========================================================================
     // ⭐ 4 or 5 Stars -> Direct to Google Review!
-    // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Sends Direct Phone SMS to Manager!
-    smsAlert: {
+    // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Sends Silent Instant Alert to Manager's Telegram!
+    // (Customer does NOTHING. VIP apology card is shown. Loud alert rings on Manager's Telegram)
+    telegramAlert: {
         enabled: true,
-        // होटल मैनेजर का मोबाइल नंबर जिस पर तुरंत Phone SMS जाएगा:
-        managerPhone: "8462063330",
-        altPhone: "9303284300",
+        // Telegram Bot Token (@BotFather से प्राप्त 100% फ्री टोकन):
+        botToken: "",
 
-        // ⚡ AUTOMATED ALERTS (कस्टमर को कुछ नहीं करना पड़ेगा — ऑटोमैटिक बैकग्राउंड डिस्पैच):
-        // 1. Fast2SMS API Key (https://www.fast2sms.com/):
-        fast2smsApiKey: "",
+        // Manager Telegram Chat ID (@userinfobot से प्राप्त):
+        chatId: "",
 
-        // 2. या Automated Computer Voice Call Webhook (Twilio / Exotel):
-        voiceCallUrl: "",
-
-        // 3. या Custom SMS Gateway URL:
-        customSmsUrl: "",
+        // होटल का नाम जो मैसेज में जाएगा:
+        hotelName: "Hotel The Sara, Guna",
 
         // कितने स्टार पर Google रिव्यू भेजना है (4 और 5 स्टार = Good)
         minGoodStars: 4,
-
-        // होटल का नाम जो SMS में जाएगा:
-        hotelName: "Hotel The Sara, Guna",
-
-        // मैसेज की हेडिंग:
-        alertHeading: "🚨 URGENT GUEST COMPLAINT SMS ALERT",
 
         // क्विक इश्यू ऑप्शंस:
         issueCategories: [
@@ -91,7 +81,18 @@ window.RESTAURANT_CONFIG = {
             "🧾 Billing / Pricing Query"
         ]
     },
-    // Compatibility alias
+
+    // SMS & Voice Fallback Configuration
+    smsAlert: {
+        enabled: true,
+        managerPhone: "8462063330",
+        altPhone: "9303284300",
+        fast2smsApiKey: "",
+        voiceCallUrl: "",
+        customSmsUrl: "",
+        minGoodStars: 4,
+        hotelName: "Hotel The Sara, Guna"
+    },
     managerAlert: {
         enabled: true,
         managerPhone: "8462063330",
