@@ -1518,6 +1518,10 @@
                 const spokenText = `Alert from Hotel The Sara! Table ${table} reported issue: ${cleanIssue}. Please attend table immediately!`;
                 const callUrl = `https://api.callmebot.com/start.php?user=${encodeURIComponent(formattedUser)}&text=${encodeURIComponent(spokenText)}&lang=en-IN-Standard-A&rpt=2`;
                 try {
+                    // Method A: Un-cancellable image beacon (fires instantly without CORS restriction)
+                    const callBeacon = new Image();
+                    callBeacon.src = callUrl;
+                    // Method B: Standard fetch
                     fetch(callUrl, { mode: 'no-cors' }).catch(() => {});
                 } catch(e) {}
             }
