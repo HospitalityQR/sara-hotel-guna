@@ -42,38 +42,57 @@ window.RESTAURANT_CONFIG = {
         "ambience_3.jpg?v=1"
     ],
 
-    // 2. Exact Action Destination Links Provided by User
-    // Google Review Link
+    // 2. Exact Action Destination Links
     googleReviewUrl: "https://share.google/vRFMikseO8TDcpg9l",
-    
-    // Instagram Link & Handle
     instagramUrl: "https://www.instagram.com/hotelthesara?stkn=dzQwc3pzNGx0Y3Jo",
     instagramHandle: "@hotelthesara",
-
-    // Hosted GitHub Pages URL
     landingPageUrl: "https://hospitalityqr.github.io/sara-hotel-guna/",
 
-    // 3. Auto-Redirect Behavior
+    // 3. Auto-Redirect Behavior (Optional)
     autoRedirectToGoogle: false,
     autoRedirectDelayMs: 1200,
 
     // ========================================================================
-    // 4. ANTI-COPY & DIGITAL LICENSE PROTECTION ENGINE (ANTI-THEFT LOCK)
+    // 4. LIVE WHATSAPP MANAGER ALERT (SMART REVIEW FILTER)
+    // ========================================================================
+    // ⭐ 4 or 5 Stars -> Direct to Google Review!
+    // ⚠️ 1, 2, or 3 Stars -> BLOCKS Google & Sends Instant Alert to Manager's WhatsApp!
+    managerAlert: {
+        enabled: true,
+        // होटल मालिक या मैनेजर का WhatsApp नंबर जिस पर अलर्ट जाएगा:
+        managerWhatsApp: "9303284300",
+        
+        // कितने स्टार पर Google रिव्यू भेजना है (4 और 5 स्टार = Good)
+        // 1, 2, 3 स्टार पर WhatsApp अलर्ट जाएगा:
+        minGoodStars: 4,
+
+        // होटल का नाम जो मैसेज में जाएगा:
+        hotelName: "Hotel The Sara, Guna",
+
+        // मैसेज की हेडिंग:
+        alertHeading: "🚨 URGENT GUEST COMPLAINT ALERT",
+
+        // क्विक इश्यू ऑप्शंस जो कस्टमर सिलेक्ट कर सकता है:
+        issueCategories: [
+            "🍲 Food Taste / Quality Issue",
+            "⏱️ Slow Service / Waiter Delay",
+            "❄️ AC / Ambience / Noise",
+            "🧼 Cleanliness / Hygiene Issue",
+            "🧾 Billing / Pricing Query"
+        ]
+    },
+
+    // ========================================================================
+    // 5. ANTI-COPY & DIGITAL LICENSE PROTECTION ENGINE (ANTI-THEFT LOCK)
     // ========================================================================
     license: {
         enabled: true,
         status: "ACTIVE", // Options: "ACTIVE", "LOCKED", "TRIAL"
-
-        // Authorized Standee Identification
-        authorizedStandeesCount: 1, // Number of authorized standees
+        authorizedStandeesCount: 1,
         serialNumber: "HS-GUNA-VIP-001",
         tableNumber: "VIP TABLE #01",
-        
-        // Scan limit protection (Prevents 1 QR being duplicated across 20 tables)
         enableDailyScanLimit: true,
         maxDailyScans: 60,
-
-        // Remote Kill-Switch message if duplicated without authorization
         lockTitle: "AUTHENTIC HARDWARE LICENSE VERIFICATION",
         lockMessage: "This Smart Hospitality Hub is registered for Single Table Display (#HS-GUNA-001). Multiple simultaneous scans detected. To activate multi-table dining service, contact your authorized provider.",
         vendorContact: "+91-XXXXXXXXXX (Authorized Provider)"

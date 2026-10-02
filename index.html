@@ -155,13 +155,13 @@
 
         /* 24k Gold Rim Medallion Logo */
         .medallion-wrap {
-            width: 105px;
-            height: 105px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             padding: 3px;
             background: var(--gold-metallic);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 20px rgba(212, 175, 55, 0.4);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             z-index: 2;
             transition: transform 0.3s ease;
         }
@@ -181,32 +181,32 @@
         /* Brand Title */
         .brand-title {
             font-family: var(--font-serif);
-            font-size: 26px;
+            font-size: 25px;
             font-weight: 800;
             color: #ffffff;
-            letter-spacing: 2.2px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
-            margin-bottom: 3px;
+            margin-bottom: 2px;
             z-index: 2;
         }
 
         .brand-sub {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
-            letter-spacing: 1.8px;
+            letter-spacing: 1.6px;
             color: var(--gold-primary);
             text-transform: uppercase;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             z-index: 2;
         }
 
         .brand-desc {
-            font-size: 11.5px;
+            font-size: 11px;
             color: var(--text-muted);
             max-width: 380px;
-            line-height: 1.45;
-            margin-bottom: 16px;
+            line-height: 1.4;
+            margin-bottom: 14px;
             z-index: 2;
         }
 
@@ -217,7 +217,7 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             z-index: 2;
         }
 
@@ -234,13 +234,218 @@
             transform: rotate(45deg);
         }
 
+        /* ==================================================================== */
+        /* INTERACTIVE 5-STAR RATING & LIVE WHATSAPP MANAGER ALERT COMPONENT    */
+        /* ==================================================================== */
+        .rating-box {
+            width: 100%;
+            background: linear-gradient(145deg, rgba(32, 19, 10, 0.95) 0%, rgba(20, 12, 6, 0.98) 100%);
+            border: 2px solid var(--card-border);
+            border-radius: 18px;
+            padding: 16px 14px 14px;
+            margin-bottom: 14px;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.75);
+            z-index: 2;
+            text-align: center;
+            position: relative;
+        }
+
+        .rating-title {
+            font-family: var(--font-serif);
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+            letter-spacing: 0.6px;
+        }
+
+        .rating-subtitle {
+            font-size: 11.5px;
+            color: var(--gold-light);
+            margin-bottom: 12px;
+        }
+
+        /* 5 Big Interactive Stars */
+        .stars-interactive {
+            display: inline-flex;
+            gap: 10px;
+            font-size: 38px;
+            cursor: pointer;
+            margin-bottom: 8px;
+            user-select: none;
+        }
+
+        .star-item {
+            color: rgba(255, 255, 255, 0.25);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s ease;
+            display: inline-block;
+        }
+
+        .star-item.active,
+        .star-item.hovered {
+            color: #f5b700;
+            text-shadow: 0 0 16px rgba(245, 183, 0, 0.6);
+            transform: scale(1.18);
+        }
+
+        .rating-feel-text {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gold-light);
+            min-height: 18px;
+            margin-bottom: 6px;
+        }
+
+        /* 5-Star Celebration Screen */
+        .good-review-banner {
+            display: none;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1.5px solid #22c55e;
+            border-radius: 14px;
+            padding: 12px 10px;
+            margin-top: 10px;
+            animation: fadeInScale 0.3s ease;
+        }
+
+        .good-review-banner.active {
+            display: block;
+        }
+
+        .good-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 13.5px;
+            padding: 11px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(34, 197, 94, 0.4);
+            margin-top: 8px;
+        }
+
+        /* 1, 2, 3 Stars Manager Alert Screen (Private - Blocks Google) */
+        .bad-review-banner {
+            display: none;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1.5px solid rgba(239, 68, 68, 0.85);
+            border-radius: 14px;
+            padding: 14px 12px;
+            margin-top: 10px;
+            text-align: left;
+            animation: fadeInScale 0.35s ease;
+        }
+
+        .bad-review-banner.active {
+            display: block;
+        }
+
+        .bad-title {
+            font-family: var(--font-serif);
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #fca5a5;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bad-desc {
+            font-size: 11px;
+            color: #e2e8f0;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        /* Issue Category Chips */
+        .issue-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .issue-chip {
+            background: rgba(18, 10, 5, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            border-radius: 16px;
+            padding: 4px 10px;
+            font-size: 10.5px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .issue-chip.selected {
+            background: #ef4444;
+            border-color: #fca5a5;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .feedback-input {
+            width: 100%;
+            background: rgba(12, 7, 4, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 10px;
+            padding: 8px 10px;
+            color: #ffffff;
+            font-size: 11.5px;
+            margin-bottom: 10px;
+            outline: none;
+            resize: none;
+            font-family: inherit;
+        }
+
+        .feedback-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .alert-manager-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 13px;
+            padding: 11px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .alert-sent-confirmation {
+            display: none;
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid #22c55e;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 11.5px;
+            color: #86efac;
+            text-align: center;
+            margin-top: 8px;
+        }
+
         /* Action Cards Section */
         .action-cards {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 18px;
+            gap: 10px;
+            margin-bottom: 16px;
             z-index: 2;
         }
 
@@ -250,33 +455,17 @@
             background: linear-gradient(145deg, rgba(28, 17, 9, 0.92) 0%, rgba(18, 11, 6, 0.96) 100%);
             border: 1.5px solid var(--card-border);
             border-radius: 16px;
-            padding: 14px 16px;
+            padding: 12px 14px;
             text-decoration: none;
             color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             position: relative;
             overflow: hidden;
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
-        }
-
-        .action-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-            transform: skewX(-22deg);
-            transition: left 0.6s ease;
-        }
-
-        .action-card:hover::before {
-            left: 140%;
         }
 
         .action-card:hover {
@@ -286,8 +475,8 @@
         }
 
         .card-icon-wrap {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -307,47 +496,33 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .card-title {
             font-family: var(--font-serif);
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             color: #ffffff;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
         }
 
         .card-subtitle {
-            font-size: 11.5px;
+            font-size: 11px;
             color: var(--gold-light);
             font-weight: 500;
         }
 
         .card-arrow {
             color: var(--gold-primary);
-            font-size: 18px;
+            font-size: 16px;
             transition: transform 0.2s ease;
-        }
-
-        .action-card:hover .card-arrow {
-            transform: translateX(4px);
-        }
-
-        /* 5 Golden Stars */
-        .stars-row {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            color: #f5b700;
-            font-size: 12px;
-            margin-top: 3px;
         }
 
         /* Ambience Carousel Section */
         .ambience-section {
             width: 100%;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             z-index: 2;
         }
 
@@ -355,13 +530,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             padding: 0 4px;
         }
 
         .section-title {
             font-family: var(--font-serif);
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 700;
             letter-spacing: 1px;
             color: var(--gold-light);
@@ -369,7 +544,7 @@
         }
 
         .section-hint {
-            font-size: 10.5px;
+            font-size: 10px;
             color: var(--text-muted);
         }
 
@@ -430,7 +605,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             z-index: 2;
         }
 
@@ -438,14 +613,14 @@
             background: rgba(28, 17, 9, 0.8);
             border: 1px solid rgba(212, 175, 58, 0.5);
             border-radius: 12px;
-            padding: 10px 4px;
+            padding: 9px 4px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             color: #ffffff;
             text-decoration: none;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
             transition: all 0.2s ease;
         }
@@ -457,7 +632,7 @@
         }
 
         .util-icon {
-            font-size: 16px;
+            font-size: 15px;
         }
 
         /* Table & Security Footer */
@@ -488,7 +663,7 @@
         }
 
         .security-seal {
-            font-size: 9.5px;
+            font-size: 9px;
             color: #a38c75;
             letter-spacing: 0.8px;
             text-transform: uppercase;
@@ -628,13 +803,75 @@
             <div class="divider-line"></div>
         </div>
 
+        <!-- ================================================================ -->
+        <!-- 🌟 SMART 5-STAR RATING & WHATSAPP MANAGER ALERT COMPONENT        -->
+        <!-- ================================================================ -->
+        <div class="rating-box" id="ratingContainer">
+            <div class="rating-title">How was your dining experience today?</div>
+            <div class="rating-subtitle">Tap stars to share your instant feedback:</div>
+
+            <!-- 5 Interactive Stars -->
+            <div class="stars-interactive" id="starsContainer">
+                <span class="star-item" data-star="1" onclick="handleStarClick(1)">★</span>
+                <span class="star-item" data-star="2" onclick="handleStarClick(2)">★</span>
+                <span class="star-item" data-star="3" onclick="handleStarClick(3)">★</span>
+                <span class="star-item" data-star="4" onclick="handleStarClick(4)">★</span>
+                <span class="star-item" data-star="5" onclick="handleStarClick(5)">★</span>
+            </div>
+
+            <div class="rating-feel-text" id="ratingFeelText">Tap stars to rate</div>
+
+            <!-- Screen 1: Good Rating (4 or 5 Stars) -> Google Review -->
+            <div class="good-review-banner" id="goodReviewBanner">
+                <div style="font-size:14px; font-weight:800; color:#86efac; margin-bottom:4px;">
+                    🎉 Thank you for dining with us!
+                </div>
+                <div style="font-size:11.5px; color:#ffffff; line-height:1.4;">
+                    Your 5-star love means the world to our kitchen & service staff.
+                </div>
+                <a href="#" class="good-btn" id="btnGoogleDirectRedirect" target="_blank" rel="noopener">
+                    ⭐ Share Your 5-Star Review on Google →
+                </a>
+            </div>
+
+            <!-- Screen 2: Bad Rating (1, 2, or 3 Stars) -> BLOCKS Google & Sends Urgent Manager WhatsApp Alert! -->
+            <div class="bad-review-banner" id="badReviewBanner">
+                <div class="bad-title">
+                    <span>⚠️</span> We are deeply sorry your visit wasn't 5-star perfection.
+                </div>
+                <div class="bad-desc">
+                    Give us a chance to make it right for you right now at your table! Please tap the issue below to alert the General Manager:
+                </div>
+
+                <!-- Issue Chips -->
+                <div class="issue-chips" id="issueChipsContainer">
+                    <span class="issue-chip selected" onclick="selectIssue(this, '🍲 Food Taste / Quality Issue')">🍲 Food Taste</span>
+                    <span class="issue-chip" onclick="selectIssue(this, '⏱️ Slow Service / Waiter Delay')">⏱️ Slow Service</span>
+                    <span class="issue-chip" onclick="selectIssue(this, '❄️ AC / Ambience / Noise')">❄️ AC / Ambience</span>
+                    <span class="issue-chip" onclick="selectIssue(this, '🧼 Cleanliness / Hygiene')">🧼 Cleanliness</span>
+                    <span class="issue-chip" onclick="selectIssue(this, '🧾 Billing / Pricing Query')">🧾 Billing</span>
+                </div>
+
+                <!-- Optional Short Note -->
+                <textarea class="feedback-input" id="feedbackComment" rows="2" placeholder="Tell our manager what went wrong... (Optional)"></textarea>
+
+                <!-- Urgent Manager Alert Button -->
+                <button type="button" class="alert-manager-btn" onclick="sendManagerWhatsAppAlert()">
+                    <span>🔔</span> Alert Manager on WhatsApp Immediately
+                </button>
+
+                <div class="alert-sent-confirmation" id="alertConfirmation">
+                    ✅ Alert sent to Manager! A senior team member is heading to your table right now.
+                </div>
+            </div>
+        </div>
+
         <!-- Primary Action Cards -->
         <div class="action-cards">
-            <!-- Google Review Card -->
+            <!-- Google Review Card (Always available as backup) -->
             <a href="#" class="action-card" id="btnGoogleReview" target="_blank" rel="noopener">
                 <div class="card-icon-wrap">
-                    <!-- Google G Icon -->
-                    <svg width="26" height="26" viewBox="0 0 24 24">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
                         <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
                         <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
@@ -646,19 +883,14 @@
                         <span class="card-title">Rate Us on Google</span>
                         <span class="card-arrow">→</span>
                     </div>
-                    <div class="card-subtitle">Share your 5-Star dining experience</div>
-                    <div class="stars-row">
-                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        <span style="color:#ffffff; font-size:11px; margin-left:4px;">5.0 Rating</span>
-                    </div>
+                    <div class="card-subtitle">Direct 5-Star Google Maps review</div>
                 </div>
             </a>
 
             <!-- Instagram Card -->
             <a href="#" class="action-card" id="btnInstagram" target="_blank" rel="noopener">
                 <div class="card-icon-wrap" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);">
-                    <!-- Instagram White Icon -->
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
                         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                     </svg>
                 </div>
@@ -667,8 +899,7 @@
                         <span class="card-title">Follow on Instagram</span>
                         <span class="card-arrow">→</span>
                     </div>
-                    <div class="card-subtitle" id="instaHandle">@hotelthesara_guna</div>
-                    <div style="font-size: 10.5px; color:#cbd5e1; margin-top:2px;">Tag us in your stories & dining reels</div>
+                    <div class="card-subtitle" id="instaHandle">@hotelthesara</div>
                 </div>
             </a>
         </div>
@@ -744,9 +975,22 @@
     </div>
 
     <!-- Central Configuration Script -->
-    <script src="config.js?v=2"></script>
+    <script src="config.js?v=3"></script>
 
     <script>
+        let currentRating = 0;
+        let selectedIssue = "🍲 Food Taste / Quality Issue";
+        let activeTable = "VIP TABLE #01";
+
+        const starFeelings = [
+            "",
+            "😡 Very Disappointed (1/5)",
+            "🙁 Needs Improvement (2/5)",
+            "😐 Average Experience (3/5)",
+            "🙂 Good Dining (4/5)",
+            "🤩 Exceptional 5-Star Experience! (5/5)"
+        ];
+
         document.addEventListener("DOMContentLoaded", () => {
             const cfg = window.RESTAURANT_CONFIG || {};
 
@@ -758,8 +1002,10 @@
 
             // Destination Links
             const googleBtn = document.getElementById("btnGoogleReview");
+            const googleDirectBtn = document.getElementById("btnGoogleDirectRedirect");
             if (cfg.googleReviewUrl) {
                 googleBtn.href = cfg.googleReviewUrl;
+                googleDirectBtn.href = cfg.googleReviewUrl;
             }
 
             const instaBtn = document.getElementById("btnInstagram");
@@ -781,7 +1027,8 @@
             // Table Number from Query Param or Config
             const urlParams = new URLSearchParams(window.location.search);
             const tableParam = urlParams.get("table") || (cfg.license && cfg.license.tableNumber) || "VIP TABLE #01";
-            document.getElementById("tableText").innerText = tableParam.toUpperCase();
+            activeTable = tableParam.toUpperCase();
+            document.getElementById("tableText").innerText = activeTable;
 
             // 2. Anti-Piracy / License Control Engine
             const lic = cfg.license || {};
@@ -790,13 +1037,11 @@
                     document.getElementById("securitySeal").innerText = `AUTHENTIC SMART TABLE HUB • SERIAL #${lic.serialNumber}`;
                 }
 
-                // If remote kill switch activated
                 if (lic.status === "LOCKED") {
                     showLicenseLock(lic.lockTitle, lic.lockMessage, lic.serialNumber, lic.vendorContact);
                     return;
                 }
 
-                // Daily Scan Frequency Limiter (Detects multiple duplicated tables)
                 if (lic.enableDailyScanLimit) {
                     const todayKey = "sara_scans_" + new Date().toISOString().slice(0, 10);
                     let dailyScans = parseInt(localStorage.getItem(todayKey) || "0", 10) + 1;
@@ -804,18 +1049,76 @@
 
                     if (dailyScans > (lic.maxDailyScans || 60)) {
                         console.warn("Scan limit reached for single table license:", dailyScans);
-                        // Optional notification or lock screen trigger
                     }
                 }
             }
-
-            // 3. Auto-Redirect Behavior (Optional)
-            if (cfg.autoRedirectToGoogle && cfg.googleReviewUrl) {
-                setTimeout(() => {
-                    window.location.href = cfg.googleReviewUrl;
-                }, cfg.autoRedirectDelayMs || 1200);
-            }
         });
+
+        // Star Click Handler
+        function handleStarClick(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll(".star-item");
+            stars.forEach((star, idx) => {
+                if (idx < rating) {
+                    star.classList.add("active");
+                } else {
+                    star.classList.remove("active");
+                }
+            });
+
+            document.getElementById("ratingFeelText").innerText = starFeelings[rating];
+
+            const goodBanner = document.getElementById("goodReviewBanner");
+            const badBanner = document.getElementById("badReviewBanner");
+
+            const cfg = window.RESTAURANT_CONFIG || {};
+            const minGood = (cfg.managerAlert && cfg.managerAlert.minGoodStars) || 4;
+
+            if (rating >= minGood) {
+                // 4 or 5 Stars -> Celebration & Google Review
+                badBanner.classList.remove("active");
+                goodBanner.classList.add("active");
+
+                // Auto-open Google Review after 1.1s for effortless 5-star review flow
+                setTimeout(() => {
+                    if (cfg.googleReviewUrl) {
+                        window.open(cfg.googleReviewUrl, "_blank");
+                    }
+                }, 1100);
+            } else {
+                // 1, 2, or 3 Stars -> BLOCKS GOOGLE! Opens Urgent Manager WhatsApp Alert Screen
+                goodBanner.classList.remove("active");
+                badBanner.classList.add("active");
+            }
+        }
+
+        // Issue Chip Selection
+        function selectIssue(elem, issueText) {
+            document.querySelectorAll(".issue-chip").forEach(c => c.classList.remove("selected"));
+            elem.classList.add("selected");
+            selectedIssue = issueText;
+        }
+
+        // Send Manager WhatsApp Alert
+        function sendManagerWhatsAppAlert() {
+            const cfg = window.RESTAURANT_CONFIG || {};
+            const mgrWhatsApp = (cfg.managerAlert && cfg.managerAlert.managerWhatsApp) || cfg.phone || "9303284300";
+            const comment = document.getElementById("feedbackComment").value.trim() || "No specific note provided.";
+
+            // Format Urgent WhatsApp Notification Message
+            const msg = `🔔 *URGENT GUEST ALERT — HOTEL THE SARA*\n\n📍 *Table:* ${activeTable}\n⭐ *Rating Given:* ${currentRating} / 5 Stars\n⚠️ *Issue:* ${selectedIssue}\n💬 *Guest Note:* "${comment}"\n\n👉 *Immediate Action Required:* Please visit ${activeTable} right now to assist the guest before they leave!`;
+
+            const encodedMsg = encodeURIComponent(msg);
+            const waUrl = `https://wa.me/91${mgrWhatsApp}?text=${encodedMsg}`;
+
+            // Show confirmation on page
+            document.getElementById("alertConfirmation").style.display = "block";
+
+            // Open WhatsApp immediately
+            setTimeout(() => {
+                window.open(waUrl, "_blank");
+            }, 400);
+        }
 
         // Lightbox Functions
         function openLightbox(imgSrc) {
