@@ -66,6 +66,10 @@ window.RESTAURANT_CONFIG = {
         // Manager Telegram Chat ID (@userinfobot से प्राप्त):
         chatId: "1208521281",
 
+        // 📞 AUTOMATED EMERGENCY VOICE CALL (कॉल आएगी और कंप्यूटर आवाज़ में बोलेगा):
+        enableVoiceCall: true,
+        telegramUsername: "", // आपका Telegram @username (जैसे @username)
+
         // होटल का नाम जो मैसेज में जाएगा:
         hotelName: "Hotel The Sara, Guna",
 
