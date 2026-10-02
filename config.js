@@ -106,7 +106,16 @@ window.RESTAURANT_CONFIG = {
     },
 
     // ========================================================================
-    // 5. ANTI-COPY & DIGITAL LICENSE PROTECTION ENGINE (ANTI-THEFT LOCK)
+    // 5. GOOGLE SHEETS LIVE DATA LOGGER (100% Free Lifetime Auto-Sync)
+    // ========================================================================
+    googleSheets: {
+        enabled: true,
+        // Google Apps Script Web App URL (Paste your URL here):
+        webhookUrl: ""
+    },
+
+    // ========================================================================
+    // 6. ANTI-COPY & DIGITAL LICENSE PROTECTION ENGINE (ANTI-THEFT LOCK)
     // ========================================================================
     license: {
         enabled: true,

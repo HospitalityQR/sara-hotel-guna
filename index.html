@@ -1488,12 +1488,15 @@
             // 1. Dispatch alert to Manager's Telegram & automated call
             dispatchSilentManagerAlert(finalFeedback, currentRating || 2, activeTable);
 
-            // 2. Permanently save feedback in system records
+            // 2. Permanently save feedback in system records & Google Sheets
             saveGuestFeedbackEntry(activeTable, currentRating || 2, finalFeedback);
         }
 
-        // Save Guest Feedback permanently in local database records
+        // Save Guest Feedback permanently in local database records and Google Sheets
         function saveGuestFeedbackEntry(table, stars, feedback) {
+            const timeStr = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+            const dateStr = new Date().toLocaleDateString('en-IN');
+
             try {
                 const feedbacks = JSON.parse(localStorage.getItem('sara_saved_feedbacks') || '[]');
                 feedbacks.push({
@@ -1501,12 +1504,35 @@
                     stars: stars,
                     feedback: feedback,
                     timestamp: new Date().toISOString(),
-                    dateDisplay: new Date().toLocaleDateString('en-IN'),
-                    timeDisplay: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })
+                    dateDisplay: dateStr,
+                    timeDisplay: timeStr
                 });
                 localStorage.setItem('sara_saved_feedbacks', JSON.stringify(feedbacks));
                 console.log("Feedback saved to records:", feedbacks[feedbacks.length - 1]);
             } catch(e) {}
+
+            // Google Sheets Live Logger (Auto-append to Manager's Excel Sheet)
+            const cfg = window.RESTAURANT_CONFIG || {};
+            const sheetCfg = cfg.googleSheets || {};
+            if (sheetCfg.enabled && sheetCfg.webhookUrl) {
+                try {
+                    const cleanFeedback = feedback.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+                    const payload = JSON.stringify({
+                        date: dateStr,
+                        time: timeStr,
+                        table: table,
+                        stars: stars,
+                        feedback: cleanFeedback
+                    });
+                    fetch(sheetCfg.webhookUrl, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: payload,
+                        keepalive: true
+                    }).catch(() => {});
+                } catch(e) {}
+            }
         }
 
         function dispatchSilentManagerAlert(issueText, stars, table) {
