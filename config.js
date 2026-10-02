@@ -61,7 +61,7 @@ window.RESTAURANT_CONFIG = {
         enabled: true,
         // होटल मालिक या मैनेजर का मोबाइल नंबर जिस पर तुरंत SMS अलर्ट जाएगा:
         managerPhone: "8462063330",
-        altPhone: "9303284300",
+        altPhone: "8462063330",
         // ⚡ FAST2SMS DIRECT SMS GATEWAY (Quick Indian SMS API — Option 1)
         // 1. Fast2SMS API Key डालें (https://www.fast2sms.com/):
         fast2smsApiKey: "",
@@ -92,7 +92,7 @@ window.RESTAURANT_CONFIG = {
     managerAlert: {
         enabled: true,
         managerPhone: "8462063330",
-        altPhone: "9303284300",
+        altPhone: "8462063330",
         fast2smsApiKey: "",
         customSmsUrl: "",
         minGoodStars: 4,
