@@ -206,6 +206,54 @@
             z-index: 2;
         }
 
+        /* Top Floating Table Identifier Badge */
+        .top-table-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 14px;
+            background: linear-gradient(135deg, rgba(32, 19, 10, 0.95) 0%, rgba(18, 10, 5, 0.98) 100%);
+            border: 1.5px solid var(--gold-primary);
+            border-radius: 20px;
+            margin: 6px 0 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.25);
+            z-index: 2;
+            animation: fadeInScale 0.6s ease;
+        }
+
+        .table-live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 8px #22c55e;
+            animation: pulseWa 1.8s infinite;
+        }
+
+        .top-table-icon {
+            font-size: 13px;
+        }
+
+        .top-table-text {
+            font-family: var(--font-serif);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .top-table-tag {
+            font-size: 8.5px;
+            font-weight: 700;
+            color: var(--gold-light);
+            background: rgba(212, 175, 55, 0.2);
+            padding: 2px 7px;
+            border-radius: 8px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
         .brand-desc {
             font-size: 11px;
             color: var(--text-muted);
@@ -799,6 +847,15 @@
         <!-- Brand Title & Tagline -->
         <h1 class="brand-title" id="brandName">HOTEL THE SARA</h1>
         <div class="brand-sub" id="brandSubname">STAY IN STYLE • FINE DINING & BANQUETS</div>
+
+        <!-- Top Table Number Badge (Prominently displayed in upper section) -->
+        <div class="top-table-badge" id="topTableBadge">
+            <span class="table-live-dot"></span>
+            <span class="top-table-icon">🍽️</span>
+            <span class="top-table-text" id="topTableBadgeText">VIP TABLE #01</span>
+            <span class="top-table-tag">DEDICATED SEAT</span>
+        </div>
+
         <p class="brand-desc" id="brandDesc">Multi-Cuisine Fine Dining • Royal Celebrations • Executive Rooms</p>
 
         <!-- Divider with Gold Diamond -->
@@ -812,7 +869,7 @@
         <!-- 🌟 SMART 5-STAR RATING & WHATSAPP MANAGER ALERT COMPONENT        -->
         <!-- ================================================================ -->
         <div class="rating-box" id="ratingContainer">
-            <div class="rating-title">How was your dining experience today?</div>
+            <div class="rating-title" id="ratingTitle">Dining at <span id="ratingTableText" style="color:var(--gold-light); font-weight:800;">VIP TABLE #01</span>?</div>
             <div class="rating-subtitle">Tap stars to share your instant feedback:</div>
 
             <!-- 5 Interactive Stars -->
@@ -1019,9 +1076,27 @@
 
             // Table Number from Query Param or Config
             const urlParams = new URLSearchParams(window.location.search);
-            const tableParam = urlParams.get("table") || (cfg.license && cfg.license.tableNumber) || "VIP TABLE #01";
-            activeTable = tableParam.toUpperCase();
-            document.getElementById("tableText").innerText = activeTable;
+            const rawTable = urlParams.get("table") || (cfg.license && cfg.license.tableNumber) || "1";
+            let formattedTable = String(rawTable).trim();
+            if (/^\d+$/.test(formattedTable)) {
+                const num = parseInt(formattedTable, 10);
+                formattedTable = (num === 1) ? "VIP TABLE #01" : `TABLE #${String(num).padStart(2, '0')}`;
+            } else if (!formattedTable.toUpperCase().includes("TABLE") && !formattedTable.toUpperCase().includes("VIP")) {
+                formattedTable = `TABLE #${formattedTable.toUpperCase()}`;
+            } else {
+                formattedTable = formattedTable.toUpperCase();
+            }
+            activeTable = formattedTable;
+
+            // Update Top Table Badge, Rating Box Table, and Bottom Footer Table
+            const topBadgeText = document.getElementById("topTableBadgeText");
+            if (topBadgeText) topBadgeText.innerText = activeTable;
+
+            const ratingTable = document.getElementById("ratingTableText");
+            if (ratingTable) ratingTable.innerText = activeTable;
+
+            const bottomTable = document.getElementById("tableText");
+            if (bottomTable) bottomTable.innerText = activeTable;
 
             // 2. Anti-Piracy / License Control Engine
             const lic = cfg.license || {};

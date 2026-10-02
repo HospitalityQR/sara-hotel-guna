@@ -340,29 +340,47 @@
         .scan-subtext {
             font-size: 9.5px;
             color: var(--gold-primary);
+            margin-bottom: 2px;
         }
 
-        .table-pill-box {
-            display: inline-flex;
+        .table-plate-box {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 5px;
-            padding: 3px 12px;
-            background: rgba(18, 10, 5, 0.85);
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            border-radius: 10px;
-            font-family: 'Cinzel', serif;
-            font-size: 10px;
-            font-weight: 800;
+            justify-content: center;
+            width: 250px;
+            padding: 5px 12px;
+            background: linear-gradient(135deg, rgba(28, 17, 9, 0.96) 0%, rgba(16, 9, 4, 0.98) 100%);
+            border: 2px solid var(--gold-primary);
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+            position: relative;
+            margin: 4px 0 2px;
+        }
+
+        .table-plate-tag {
+            font-size: 8px;
+            font-weight: 700;
             color: var(--gold-light);
-            letter-spacing: 0.8px;
-            margin-top: 2px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .table-plate-title {
+            font-family: 'Cinzel', serif;
+            font-size: 14.5px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1.2px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
         .security-serial-text {
-            font-size: 8px;
-            color: #8c735b;
+            font-size: 7.5px;
+            color: #a38c75;
             letter-spacing: 0.6px;
             text-transform: uppercase;
+            margin-top: 2px;
         }
 
         /* Print Media Styles */
@@ -492,8 +510,9 @@
             <div class="scan-instruction" id="scanTitle">POINT YOUR PHONE CAMERA TO SCAN</div>
             <div class="scan-subtext" id="scanDesc">Direct Google Reviews • Instagram • WiFi • Contact</div>
 
-            <div class="table-pill-box">
-                <span id="displayTableText">VIP TABLE #01</span>
+            <div class="table-plate-box">
+                <span class="table-plate-tag">★ DEDICATED SMART SEAT ★</span>
+                <span class="table-plate-title" id="displayTableText">• VIP TABLE #01 •</span>
             </div>
 
             <div class="security-serial-text" id="serialText">
@@ -564,7 +583,7 @@
         }
 
         function updateTable(val) {
-            document.getElementById('displayTableText').innerText = val;
+            document.getElementById('displayTableText').innerText = `• ${val.toUpperCase()} •`;
         }
 
         document.addEventListener('DOMContentLoaded', () => {

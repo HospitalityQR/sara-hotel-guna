@@ -495,13 +495,32 @@ def generate_single_smart_standee(config, output_filename="table_standee_printab
     card.paste(qr_img, (W // 2 - 315, qr_box_y), qr_img)
 
     # 4. Under-QR Guidance:
-    draw.text((W // 2, 1304), "POINT YOUR PHONE CAMERA TO SCAN", fill=(255, 255, 255), font=get_font(24, bold=True, serif=True), anchor="mm")
-    draw.text((W // 2, 1338), "Direct Google Reviews • Instagram • WiFi • Contact", fill=(218, 175, 58), font=f_cta_sub, anchor="mm")
+    draw.text((W // 2, 1295), "POINT YOUR PHONE CAMERA TO SCAN", fill=(255, 255, 255), font=get_font(24, bold=True, serif=True), anchor="mm")
+    draw.text((W // 2, 1330), "Instant Google Review • Instagram • Quick Staff Alert", fill=(218, 175, 58), font=f_cta_sub, anchor="mm")
 
-    # 5. Table Number & Security Seal:
+    # Flourish divider
+    draw.line([(W // 2 - 200, 1365), (W // 2 + 200, 1365)], fill=(218, 175, 58, 160), width=2)
+    draw.polygon([(W // 2, 1360), (W // 2 + 6, 1365), (W // 2, 1370), (W // 2 - 6, 1365)], fill=(249, 226, 156))
+
+    # 5. Prominent Royal Table Number Plate at Bottom:
     display_table = table_num or config.get("license", {}).get("tableNumber", "VIP TABLE #01")
-    draw.rounded_rectangle([W // 2 - 190, 1380, W // 2 + 190, 1432], radius=15, fill=(18, 10, 5, 240), outline=(218, 175, 58), width=2)
-    draw.text((W // 2, 1406), f"• {display_table.upper()} •", fill=(255, 220, 130), font=get_font(22, bold=True, serif=True), anchor="mm")
+    # Outer luxury gold plate
+    draw.rounded_rectangle([W // 2 - 310, 1395, W // 2 + 310, 1525], radius=24, fill=(18, 10, 5, 255), outline=(218, 175, 58), width=4)
+    # Inner hairline gold border
+    draw.rounded_rectangle([W // 2 - 300, 1405, W // 2 + 300, 1515], radius=18, outline=(249, 226, 156, 190), width=2)
+    
+    # Corner diamonds on the plate
+    for cx, cy in [(W // 2 - 280, 1422), (W // 2 + 280, 1422), (W // 2 - 280, 1498), (W // 2 + 280, 1498)]:
+        draw.polygon([(cx, cy - 4), (cx + 4, cy), (cx, cy + 4), (cx - 4, cy)], fill=(249, 226, 156))
+
+    # Top small label
+    draw.text((W // 2, 1430), "• DEDICATED VIP TABLE •", fill=(218, 175, 58), font=get_font(18, bold=True), anchor="mm")
+    # Big, bold table number
+    draw.text((W // 2, 1478), f"• {display_table.upper()} •", fill=(255, 245, 210), font=get_font(42, bold=True, serif=True), anchor="mm")
+
+    # Hotel Sara Brand tagline under plate
+    draw.text((W // 2, 1570), "HOTEL THE SARA • GUNA (M.P.)", fill=(249, 226, 156), font=get_font(20, bold=True, serif=True), anchor="mm")
+    draw.text((W // 2, 1605), "Executive Fine Dining • Banquets • Premium Hospitality", fill=(210, 180, 140), font=get_font(16), anchor="mm")
 
     # Anti-Piracy Tamper-Proof Hologram / Security Footer:
     display_serial = serial_no or config.get("license", {}).get("serialNumber", "HS-GUNA-VIP-001")
@@ -578,8 +597,10 @@ def generate_dual_direct_standee(config, output_filename="standee_dual_direct_st
 
     # Bottom Table & Security Section
     table_num = config.get("license", {}).get("tableNumber", "VIP TABLE #01")
-    draw.rounded_rectangle([W // 2 - 180, 1420, W // 2 + 180, 1470], radius=15, fill=(18, 10, 5, 240), outline=(218, 175, 58), width=2)
-    draw.text((W // 2, 1445), f"• {table_num.upper()} •", fill=(255, 220, 130), font=get_font(22, bold=True, serif=True), anchor="mm")
+    draw.rounded_rectangle([W // 2 - 300, 1405, W // 2 + 300, 1530], radius=24, fill=(18, 10, 5, 255), outline=(218, 175, 58), width=4)
+    draw.rounded_rectangle([W // 2 - 290, 1415, W // 2 + 290, 1520], radius=18, outline=(249, 226, 156, 190), width=2)
+    draw.text((W // 2, 1438), "• DEDICATED VIP TABLE •", fill=(218, 175, 58), font=get_font(18, bold=True), anchor="mm")
+    draw.text((W // 2, 1485), f"• {table_num.upper()} •", fill=(255, 245, 210), font=get_font(42, bold=True, serif=True), anchor="mm")
 
     # Anti-Piracy Serial
     serial_no = config.get("license", {}).get("serialNumber", "HS-GUNA-VIP-001")
@@ -620,8 +641,10 @@ def generate_single_channel_standees(config):
 
     # Table badge & serial
     table_num = config.get("license", {}).get("tableNumber", "VIP TABLE #01")
-    draw_g.rounded_rectangle([W // 2 - 180, 1380, W // 2 + 180, 1430], radius=15, fill=(18, 10, 5, 240), outline=(218, 175, 58), width=2)
-    draw_g.text((W // 2, 1405), f"• {table_num.upper()} •", fill=(255, 220, 130), font=get_font(22, bold=True, serif=True), anchor="mm")
+    draw_g.rounded_rectangle([W // 2 - 300, 1395, W // 2 + 300, 1520], radius=24, fill=(18, 10, 5, 255), outline=(218, 175, 58), width=4)
+    draw_g.rounded_rectangle([W // 2 - 290, 1405, W // 2 + 290, 1510], radius=18, outline=(249, 226, 156, 190), width=2)
+    draw_g.text((W // 2, 1428), "• DEDICATED VIP TABLE •", fill=(218, 175, 58), font=get_font(18, bold=True), anchor="mm")
+    draw_g.text((W // 2, 1475), f"• {table_num.upper()} •", fill=(255, 245, 210), font=get_font(42, bold=True, serif=True), anchor="mm")
 
     serial_no = config.get("license", {}).get("serialNumber", "HS-GUNA-VIP-001")
     draw_g.rounded_rectangle([72, 1690, W - 72, 1742], radius=12, fill=(10, 6, 3, 230), outline=(180, 130, 30), width=1)
@@ -655,8 +678,10 @@ def generate_single_channel_standees(config):
     draw_i.text((W // 2, 1318), "Exclusive Stories, Event Updates & Banquet Highlights", fill=(218, 175, 58), font=get_font(20), anchor="mm")
 
     # Table badge & serial
-    draw_i.rounded_rectangle([W // 2 - 180, 1380, W // 2 + 180, 1430], radius=15, fill=(18, 10, 5, 240), outline=(218, 175, 58), width=2)
-    draw_i.text((W // 2, 1405), f"• {table_num.upper()} •", fill=(255, 220, 130), font=get_font(22, bold=True, serif=True), anchor="mm")
+    draw_i.rounded_rectangle([W // 2 - 300, 1395, W // 2 + 300, 1520], radius=24, fill=(18, 10, 5, 255), outline=(218, 175, 58), width=4)
+    draw_i.rounded_rectangle([W // 2 - 290, 1405, W // 2 + 290, 1510], radius=18, outline=(249, 226, 156, 190), width=2)
+    draw_i.text((W // 2, 1428), "• DEDICATED VIP TABLE •", fill=(218, 175, 58), font=get_font(18, bold=True), anchor="mm")
+    draw_i.text((W // 2, 1475), f"• {table_num.upper()} •", fill=(255, 245, 210), font=get_font(42, bold=True, serif=True), anchor="mm")
 
     draw_i.rounded_rectangle([72, 1690, W - 72, 1742], radius=12, fill=(10, 6, 3, 230), outline=(180, 130, 30), width=1)
     draw_i.text((W // 2, 1716), f"AUTHENTIC HOSPITALITY INSTA HUB  |  SERIAL #{serial_no}  |  LICENSED HARDWARE", fill=(180, 150, 100), font=get_font(15, bold=True), anchor="mm")
